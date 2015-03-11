@@ -1,0 +1,49 @@
+<%= form_for(@computer) do |f| %>
+  <% if @computer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@computer.errors.count, "error") %> prohibited this computer from being saved:</h2>
+
+      <ul>
+      <% @computer.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :serial %><br>
+    <%= f.text_field :serial %>
+  </div>
+  <div class="field">
+    <%= f.label :location %><br>
+    <%= f.text_field :location %>
+  </div>
+  <div class="field">
+    <%= f.label :dimm_slots %><br>
+    <%= f.number_field :dimm_slots %>
+  </div>
+  <div class="field">
+    <%= f.label :pci_slots %><br>
+    <%= f.number_field :pci_slots %>
+  </div>
+  <div class="field">
+    <%= f.label :bios_vendor %><br>
+    <%= f.text_field :bios_vendor %>
+  </div>
+  <div class="field">
+    <%= f.label :bios_version %><br>
+    <%= f.text_field :bios_version %>
+  </div>
+  <div class="field">
+    <%= f.label :vendor %><br>
+    <%= f.text_field :vendor %>
+  </div>
+  <div class="field">
+    <%= f.label :product_name %><br>
+    <%= f.text_field :product_name %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Serial:</strong>
+  <%= @computer.serial %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @computer.location %>
+</p>
+
+<p>
+  <strong>Dimm slots:</strong>
+  <%= @computer.dimm_slots %>
+</p>
+
+<p>
+  <strong>Pci slots:</strong>
+  <%= @computer.pci_slots %>
+</p>
+
+<p>
+  <strong>Bios vendor:</strong>
+  <%= @computer.bios_vendor %>
+</p>
+
+<p>
+  <strong>Bios version:</strong>
+  <%= @computer.bios_version %>
+</p>
+
+<p>
+  <strong>Vendor:</strong>
+  <%= @computer.vendor %>
+</p>
+
+<p>
+  <strong>Product name:</strong>
+  <%= @computer.product_name %>
+</p>
+
+<%= link_to 'Edit', edit_computer_path(@computer) %> |
+<%= link_to 'Back', computers_path %>

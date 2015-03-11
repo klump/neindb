@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Computers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Serial</th>
+      <th>Location</th>
+      <th>Dimm slots</th>
+      <th>Pci slots</th>
+      <th>Bios vendor</th>
+      <th>Bios version</th>
+      <th>Vendor</th>
+      <th>Product name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @computers.each do |computer| %>
+      <tr>
+        <td><%= computer.serial %></td>
+        <td><%= computer.location %></td>
+        <td><%= computer.dimm_slots %></td>
+        <td><%= computer.pci_slots %></td>
+        <td><%= computer.bios_vendor %></td>
+        <td><%= computer.bios_version %></td>
+        <td><%= computer.vendor %></td>
+        <td><%= computer.product_name %></td>
+        <td><%= link_to 'Show', computer %></td>
+        <td><%= link_to 'Edit', edit_computer_path(computer) %></td>
+        <td><%= link_to 'Destroy', computer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Computer', new_computer_path %>

@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Serial:</strong>
+  <%= @hard_drife.serial %>
+</p>
+
+<p>
+  <strong>Model:</strong>
+  <%= @hard_drife.model %>
+</p>
+
+<p>
+  <strong>Device model:</strong>
+  <%= @hard_drife.device_model %>
+</p>
+
+<p>
+  <strong>Firmware:</strong>
+  <%= @hard_drife.firmware %>
+</p>
+
+<p>
+  <strong>Capacity bytes:</strong>
+  <%= @hard_drife.capacity_bytes %>
+</p>
+
+<p>
+  <strong>Rpm:</strong>
+  <%= @hard_drife.rpm %>
+</p>
+
+<%= link_to 'Edit', edit_hard_drife_path(@hard_drife) %> |
+<%= link_to 'Back', hard_drives_path %>

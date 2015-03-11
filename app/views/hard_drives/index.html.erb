@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Hard Drives</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Serial</th>
+      <th>Model</th>
+      <th>Device model</th>
+      <th>Firmware</th>
+      <th>Capacity bytes</th>
+      <th>Rpm</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @hard_drives.each do |hard_drife| %>
+      <tr>
+        <td><%= hard_drife.serial %></td>
+        <td><%= hard_drife.model %></td>
+        <td><%= hard_drife.device_model %></td>
+        <td><%= hard_drife.firmware %></td>
+        <td><%= hard_drife.capacity_bytes %></td>
+        <td><%= hard_drife.rpm %></td>
+        <td><%= link_to 'Show', hard_drife %></td>
+        <td><%= link_to 'Edit', edit_hard_drife_path(hard_drife) %></td>
+        <td><%= link_to 'Destroy', hard_drife, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Hard drive', new_hard_drife_path %>
