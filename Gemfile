@@ -27,6 +27,9 @@ gem 'cors'
 gem 'sidekiq'
 
 group :development, :test do
+  # Generate ERD graphs from the database schema
+  gem 'rails-erd'
+
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   
