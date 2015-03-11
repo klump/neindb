@@ -10,6 +10,9 @@
 # ignore custom database config
 /config/database.yml
 
+# ignore rendered databases schemes
+/erd.*
+
 # Ignore the default SQLite database.
 /db/*.sqlite3
 /db/*.sqlite3-journal

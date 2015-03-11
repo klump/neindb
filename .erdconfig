@@ -1,0 +1,12 @@
+attributes:
+  - content
+  - inheritance
+  - timestamps
+  - foreign_keys
+  - primary_keys
+filetype: svg
+inheritance: true
+polymorphism: true
+orientation: vertical
+warn: false
+title: "NEIN!DB - domain model"
