@@ -1,4 +1,4 @@
 class Status < ActiveRecord::Base
-  has_many :revsions, as: :revisionable
-  belongs_to :status_trackable, polymorphic: true
+  has_many :revisions, as: :revisionable
+  belongs_to :asset
 end

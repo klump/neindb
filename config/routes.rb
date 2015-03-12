@@ -1,17 +1,13 @@
 Rails.application.routes.draw do
+  resources :assets
+
   resources :revisions
 
   resources :statuses
 
-  resources :hard_drives
-
-  resources :cages
-
   resources :components
 
   resources :reports
-
-  resources :computers
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

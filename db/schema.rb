@@ -11,24 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150312203455) do
+ActiveRecord::Schema.define(version: 20150312214100) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
 
+  create_table "assets", force: :cascade do |t|
+    t.string   "name"
+    t.string   "type"
+    t.json     "properties"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "attached_components", force: :cascade do |t|
     t.string   "connector"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
-    t.integer  "computer_id"
+    t.integer  "asset_id"
     t.integer  "component_id"
-  end
-
-  create_table "cages", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "components", force: :cascade do |t|
@@ -40,41 +42,15 @@ ActiveRecord::Schema.define(version: 20150312203455) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "computers", force: :cascade do |t|
-    t.string   "serial"
-    t.string   "location"
-    t.integer  "dimm_slots"
-    t.integer  "pci_slots"
-    t.string   "bios_vendor"
-    t.string   "bios_version"
-    t.string   "vendor"
-    t.string   "product_name"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-  end
-
-  create_table "hard_drives", force: :cascade do |t|
-    t.string   "serial"
-    t.string   "model"
-    t.string   "device_model"
-    t.string   "firmware"
-    t.integer  "capacity_bytes",             limit: 8
-    t.integer  "rpm"
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
-    t.integer  "hard_drive_attachable_id"
-    t.string   "hard_drive_attachable_type"
-  end
-
   create_table "reports", force: :cascade do |t|
     t.string   "status"
     t.datetime "starttime"
     t.datetime "endtime"
     t.text     "log"
     t.json     "data"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.integer  "computer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "asset_id"
   end
 
   create_table "revisions", force: :cascade do |t|
@@ -91,11 +67,14 @@ ActiveRecord::Schema.define(version: 20150312203455) do
   create_table "statuses", force: :cascade do |t|
     t.string   "name"
     t.string   "state"
+    t.string   "message"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "asset_id",   null: false
   end
 
+  add_foreign_key "attached_components", "assets", on_delete: :cascade
   add_foreign_key "attached_components", "components", on_delete: :cascade
-  add_foreign_key "attached_components", "computers", on_delete: :cascade
-  add_foreign_key "reports", "computers", on_delete: :cascade
+  add_foreign_key "reports", "assets", on_delete: :cascade
+  add_foreign_key "statuses", "assets", on_delete: :cascade
 end
