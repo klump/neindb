@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Old data:</strong>
+  <%= @revision.old_data %>
+</p>
+
+<p>
+  <strong>New data:</strong>
+  <%= @revision.new_data %>
+</p>
+
+<%= link_to 'Edit', edit_revision_path(@revision) %> |
+<%= link_to 'Back', revisions_path %>

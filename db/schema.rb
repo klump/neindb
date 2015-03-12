@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150311221835) do
+ActiveRecord::Schema.define(version: 20150312203455) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,16 +29,6 @@ ActiveRecord::Schema.define(version: 20150311221835) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "checks", force: :cascade do |t|
-    t.string   "name"
-    t.string   "status"
-    t.string   "message"
-    t.text     "data"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.integer  "computer_id"
   end
 
   create_table "components", force: :cascade do |t|
@@ -76,14 +66,6 @@ ActiveRecord::Schema.define(version: 20150311221835) do
     t.string   "hard_drive_attachable_type"
   end
 
-  create_table "information", force: :cascade do |t|
-    t.string   "name"
-    t.text     "data"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.integer  "computer_id"
-  end
-
   create_table "reports", force: :cascade do |t|
     t.string   "status"
     t.datetime "starttime"
@@ -95,9 +77,25 @@ ActiveRecord::Schema.define(version: 20150311221835) do
     t.integer  "computer_id"
   end
 
+  create_table "revisions", force: :cascade do |t|
+    t.json     "old_data"
+    t.json     "new_data"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.integer  "revisionable_id",   null: false
+    t.string   "revisionable_type", null: false
+    t.integer  "trigger_id",        null: false
+    t.string   "trigger_type",      null: false
+  end
+
+  create_table "statuses", force: :cascade do |t|
+    t.string   "name"
+    t.string   "state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "attached_components", "components", on_delete: :cascade
   add_foreign_key "attached_components", "computers", on_delete: :cascade
-  add_foreign_key "checks", "computers", on_delete: :cascade
-  add_foreign_key "information", "computers", on_delete: :cascade
   add_foreign_key "reports", "computers", on_delete: :cascade
 end
