@@ -42,8 +42,10 @@ ActiveRecord::Schema.define(version: 20150311221835) do
   end
 
   create_table "components", force: :cascade do |t|
+    t.string   "name"
+    t.string   "vendor"
+    t.json     "properties"
     t.string   "type"
-    t.hstore   "properties"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
