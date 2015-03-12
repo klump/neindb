@@ -2,7 +2,7 @@ require 'test_helper'
 
 class HardDrivesControllerTest < ActionController::TestCase
   setup do
-    @hard_drife = hard_drives(:one)
+    @hard_drive = hard_drives(:one)
   end
 
   test "should get index" do
@@ -16,32 +16,32 @@ class HardDrivesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should create hard_drife" do
+  test "should create hard_drive" do
     assert_difference('HardDrive.count') do
-      post :create, hard_drife: { capacity_bytes: @hard_drife.capacity_bytes, device_model: @hard_drife.device_model, firmware: @hard_drife.firmware, model: @hard_drife.model, rpm: @hard_drife.rpm, serial: @hard_drife.serial }
+      post :create, hard_drive: { capacity_bytes: @hard_drive.capacity_bytes, device_model: @hard_drive.device_model, firmware: @hard_drive.firmware, model: @hard_drive.model, rpm: @hard_drive.rpm, serial: @hard_drive.serial }
     end
 
-    assert_redirected_to hard_drife_path(assigns(:hard_drife))
+    assert_redirected_to hard_drive_path(assigns(:hard_drive))
   end
 
-  test "should show hard_drife" do
-    get :show, id: @hard_drife
+  test "should show hard_drive" do
+    get :show, id: @hard_drive
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: @hard_drife
+    get :edit, id: @hard_drive
     assert_response :success
   end
 
-  test "should update hard_drife" do
-    patch :update, id: @hard_drife, hard_drife: { capacity_bytes: @hard_drife.capacity_bytes, device_model: @hard_drife.device_model, firmware: @hard_drife.firmware, model: @hard_drife.model, rpm: @hard_drife.rpm, serial: @hard_drife.serial }
-    assert_redirected_to hard_drife_path(assigns(:hard_drife))
+  test "should update hard_drive" do
+    patch :update, id: @hard_drive, hard_drive: { capacity_bytes: @hard_drive.capacity_bytes, device_model: @hard_drive.device_model, firmware: @hard_drive.firmware, model: @hard_drive.model, rpm: @hard_drive.rpm, serial: @hard_drive.serial }
+    assert_redirected_to hard_drive_path(assigns(:hard_drive))
   end
 
-  test "should destroy hard_drife" do
+  test "should destroy hard_drive" do
     assert_difference('HardDrive.count', -1) do
-      delete :destroy, id: @hard_drife
+      delete :destroy, id: @hard_drive
     end
 
     assert_redirected_to hard_drives_path

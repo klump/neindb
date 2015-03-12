@@ -16,17 +16,17 @@
   </thead>
 
   <tbody>
-    <% @hard_drives.each do |hard_drife| %>
+    <% @hard_drives.each do |hard_drive| %>
       <tr>
-        <td><%= hard_drife.serial %></td>
-        <td><%= hard_drife.model %></td>
-        <td><%= hard_drife.device_model %></td>
-        <td><%= hard_drife.firmware %></td>
-        <td><%= hard_drife.capacity_bytes %></td>
-        <td><%= hard_drife.rpm %></td>
-        <td><%= link_to 'Show', hard_drife %></td>
-        <td><%= link_to 'Edit', edit_hard_drife_path(hard_drife) %></td>
-        <td><%= link_to 'Destroy', hard_drife, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= hard_drive.serial %></td>
+        <td><%= hard_drive.model %></td>
+        <td><%= hard_drive.device_model %></td>
+        <td><%= hard_drive.firmware %></td>
+        <td><%= hard_drive.capacity_bytes %></td>
+        <td><%= hard_drive.rpm %></td>
+        <td><%= link_to 'Show', hard_drive %></td>
+        <td><%= link_to 'Edit', edit_hard_drive_path(hard_drive) %></td>
+        <td><%= link_to 'Destroy', hard_drive, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -34,4 +34,4 @@
 
 <br>
 
-<%= link_to 'New Hard drive', new_hard_drife_path %>
+<%= link_to 'New Hard drive', new_hard_drive_path %>
