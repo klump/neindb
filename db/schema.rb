@@ -46,7 +46,6 @@ ActiveRecord::Schema.define(version: 20150312214100) do
     t.string   "status"
     t.datetime "starttime"
     t.datetime "endtime"
-    t.text     "log"
     t.json     "data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
