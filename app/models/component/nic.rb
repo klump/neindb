@@ -14,10 +14,11 @@ class Component
     end
 
     def mac_addresses=(macs)
-      raise TypeError.new("Expectd macs to be of type Array") unless macs.is_a? Array
+      raise TypeError.new("Expected macs to be of type Array") unless macs.is_a? Array
 
       macs.map! do |mac|
         mac.gsub!(/[.:-]/,'')
+        mac.downcase!
       end
 
       super(macs)
@@ -30,7 +31,7 @@ class Component
           return
         end
         mac_addresses.each do |mac|
-          unless mac =~ /^[a-f0-99]{12}$/
+          unless mac =~ /^[a-f0-9]{12}$/
             errors.add :mac_addresses, "contains an invalid MAC address"
             return
           end
