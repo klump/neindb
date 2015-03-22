@@ -17,8 +17,7 @@ class Component
       raise TypeError.new("Expected macs to be of type Array") unless macs.is_a? Array
 
       macs.map! do |mac|
-        mac.gsub!(/[.:-]/,'')
-        mac.downcase!
+        mac.gsub(/[.:-]/,'').downcase
       end
 
       super(macs)

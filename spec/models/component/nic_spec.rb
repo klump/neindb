@@ -25,7 +25,7 @@ describe Component::Nic, type: :model do
 
       nic = Component::Nic.new(mac_addresses: mac_addresses)
       
-      expect(nic.primary_mac).to be "112233445566"
+      expect(nic.primary_mac).to eq "112233445566"
     end
     it "returns nil if there are no mac addresses set" do
       nic = Component::Nic.new
