@@ -26,6 +26,9 @@ gem 'cors'
 # Use sidekiq as workers
 gem 'sidekiq'
 
+# Use devise for authentication
+gem 'devise'
+
 group :development, :test do
   # Generate ERD graphs from the database schema
   gem 'rails-erd'

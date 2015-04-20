@@ -1,6 +1,9 @@
 require 'api_constraints'
 
 Rails.application.routes.draw do
+  devise_for :users
+
+  resources :users
   resources :assets
   resources :revisions, only: [:show, :index]
   resources :statuses, only: [:show, :index]
@@ -9,6 +12,7 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     scope module: :v1, constraints: ApiConstraints.new( version: 1, default: true ) do
+      resources :users
       resources :assets
       resources :revisions
       resources :statuses
@@ -21,7 +25,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  root 'reports#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
