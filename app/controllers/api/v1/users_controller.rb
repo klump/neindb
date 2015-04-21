@@ -1,8 +1,7 @@
 class Api::V1::UsersController < Api::V1::BaseController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
-  # GET /assets/1
-  # GET /assets/1.json
+  # GET /users/1
   def show
   end
 

@@ -2,27 +2,15 @@ class Api::V1::RevisionsController < ApplicationController
   before_action :set_revision, only: [:show, :edit, :update, :destroy]
 
   # GET /revisions
-  # GET /revisions.json
   def index
     @revisions = Revision.all
   end
 
   # GET /revisions/1
-  # GET /revisions/1.json
   def show
   end
 
-  # GET /revisions/new
-  def new
-    @revision = Revision.new
-  end
-
-  # GET /revisions/1/edit
-  def edit
-  end
-
   # POST /revisions
-  # POST /revisions.json
   def create
     @revision = Revision.new(revision_params)
 
@@ -38,7 +26,6 @@ class Api::V1::RevisionsController < ApplicationController
   end
 
   # PATCH/PUT /revisions/1
-  # PATCH/PUT /revisions/1.json
   def update
     respond_to do |format|
       if @revision.update(revision_params)
@@ -52,7 +39,6 @@ class Api::V1::RevisionsController < ApplicationController
   end
 
   # DELETE /revisions/1
-  # DELETE /revisions/1.json
   def destroy
     @revision.destroy
     respond_to do |format|

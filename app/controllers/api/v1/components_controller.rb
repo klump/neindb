@@ -2,27 +2,15 @@ class Api::V1::ComponentsController < ApplicationController
   before_action :set_component, only: [:show, :edit, :update, :destroy]
 
   # GET /components
-  # GET /components.json
   def index
     @components = Component.all
   end
 
   # GET /components/1
-  # GET /components/1.json
   def show
   end
 
-  # GET /components/new
-  def new
-    @component = Component.new
-  end
-
-  # GET /components/1/edit
-  def edit
-  end
-
   # POST /components
-  # POST /components.json
   def create
     @component = Component.new(component_params)
 

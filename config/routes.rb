@@ -1,6 +1,7 @@
 require 'api_constraints'
 
 Rails.application.routes.draw do
+  apipie
   devise_for :users
 
   resources :users
@@ -12,12 +13,14 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     scope module: :v1, constraints: ApiConstraints.new( version: 1, default: true ) do
-      resources :users
-      resources :assets
-      resources :revisions
-      resources :statuses
-      resources :components
-      resources :reports
+      resources :users, only: [:show]
+      resources :assets, only: [:index, :show, :create, :update, :destroy] do
+        get 'search', on: :collection
+      end
+      resources :revisions, only: [:index, :show, :create, :update, :destroy]
+      resources :statuses, only: [:index, :show, :create, :update, :destroy]
+      resources :components, only: [:index, :show, :create, :update, :destroy]
+      resources :reports, only: [:index, :show, :create, :update, :destroy]
     end
   end
 

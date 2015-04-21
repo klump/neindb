@@ -21,3 +21,10 @@
 /log/*
 !/log/.keep
 /tmp
+
+# ignore apipie doc
+/doc/
+
+# ignore vim swapfiles
+.*.swp
+.*.swo
