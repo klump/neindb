@@ -31,6 +31,7 @@ gem 'devise'
 
 # Documentation of the API
 gem 'apipie-rails'
+gem 'RedCloth'
 
 group :development, :test do
   # Generate ERD graphs from the database schema
