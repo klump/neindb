@@ -29,6 +29,9 @@ gem 'sidekiq'
 # Use devise for authentication
 gem 'devise'
 
+# Documentation of the API
+gem 'apipie-rails'
+
 group :development, :test do
   # Generate ERD graphs from the database schema
   gem 'rails-erd'
