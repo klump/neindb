@@ -1,7 +1,6 @@
 require 'api_constraints'
 
 Rails.application.routes.draw do
-  apipie
   devise_for :users
 
   resources :users
@@ -12,6 +11,7 @@ Rails.application.routes.draw do
   resources :reports, only: [:show, :index]
 
   namespace :api, defaults: { format: :json } do
+    apipie
     scope module: :v1, constraints: ApiConstraints.new( version: 1, default: true ) do
       resources :users, only: [:show]
       resources :assets, only: [:index, :show, :create, :update, :destroy] do
