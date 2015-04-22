@@ -1,5 +1,5 @@
-class Api::V1::AssetsController < ApplicationController
-  before_action :set_asset, only: [:show, :edit, :update, :destroy]
+class Api::V1::AssetsController < Api::V1::BaseController
+  before_action :set_asset, only: [:edit, :update, :destroy]
 
   resource_description do
     short 'Inventory asset'
@@ -21,16 +21,14 @@ class Api::V1::AssetsController < ApplicationController
   end
 
   api :GET, '/assets/:id'
-  param :id, Integer, desc: 'Internal identifier', required: true
-  description 'Fetch an asset from the database by its internal (nummeric) identifier.'
+  param :id, String, desc: 'Internal identifier', required: true
+  description 'Fetch an asset from the database by its identifier. Use the internal or external identifier.'
   def show
-  end
-
-  api :GET, '/assets/search'
-  param :name, String, desc: 'External identifier', required: true
-  param :type, String, desc: 'The asset subclass', required: true
-  description 'Fetch an asset from the database by its external identifier. Addionally the subclass needs to be set.'
-  def search
+    if ( params[:id] =~ /^\d+$/ )
+      set_asset
+    else
+      @asset = Asset.find_by_name!(params[:id])
+    end
   end
 
   api :POST, '/assets'
