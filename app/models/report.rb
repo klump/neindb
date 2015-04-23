@@ -1,11 +1,9 @@
 class Report < ActiveRecord::Base
-  STATUS = %w(pass fail)
+  STATUS = %w(running pass fail)
 
   has_many :revisions, as: :trigger
   belongs_to :asset
 
-  validates :status, presence: true, inclusion: STATUS
+  validates :status, inclusion: STATUS, allow_nil: true
   validates :starttime, presence: true
-  validates :endtime, presence: true
-  validates :data, presence: true
 end
