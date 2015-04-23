@@ -44,6 +44,8 @@ class Api::V1::ReportsController < Api::V1::BaseController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def report_params
-      params.require(:report).permit(:id, :asset_id, :status, :starttime, :endtime, data: {})
+      params.require(:report).permit(:id, :asset_id, :status, :starttime, :endtime).tap do |whitelisted|
+        whitelisted[:data] = params[:report][:data]
+      end
     end
 end
