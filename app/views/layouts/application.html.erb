@@ -1,31 +1,20 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>NeinDb</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-  <noscript>
-    <div class="alert alert-danger">This page works better with JavaScript. For the responsive features JavaScript is required.</div>
-  </noscript>
+  <head>
+    <title>NeinDb</title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <noscript>
+      <div class="alert alert-danger">This page works better with JavaScript. For the responsive features JavaScript is required.</div>
+    </noscript>
 
-  <%= render 'layouts/navbar' %>
+    <%= render 'layouts/navbar' %>
+    <%= render 'layouts/flashes' %>
+    
+  <%= yield %>
 
-  <% if notice || alert %>
-    <div class="flash">
-      <% if notice %>
-        <div class="alert alert-success"><%= notice %></div>
-      <% end %>
-      <% if alert %>
-        <div class="alert alert-danger"><%= alert %></div>
-      <% end %>
-    </div>
-  <% end %>
-
-
-<%= yield %>
-
-</body>
+  </body>
 </html>
