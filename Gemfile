@@ -34,7 +34,7 @@ gem 'apipie-rails'
 gem 'RedCloth'
 
 # Bootstrap for the design
-gem 'boostrap-sass'
+gem 'bootstrap-sass'
 
 group :development, :test do
   # Generate ERD graphs from the database schema
