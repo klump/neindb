@@ -20,7 +20,7 @@ Rails.application.routes.draw do
       resources :revisions, only: [:index, :show, :create, :update, :destroy]
       resources :statuses, only: [:index, :show, :create, :update, :destroy]
       resources :components, only: [:index, :show, :create, :update, :destroy]
-      resources :reports, only: [:index, :show, :create, :update, :destroy]
+      resources :reports, only: [:index, :show, :create, :update]
     end
   end
 

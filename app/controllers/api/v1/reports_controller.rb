@@ -1,5 +1,5 @@
 class Api::V1::ReportsController < Api::V1::BaseController
-  before_action :set_report, only: [:show, :edit, :update, :destroy]
+  before_action :set_report, only: [:show, :edit, :update]
 
   # GET /reports
   def index
@@ -28,12 +28,6 @@ class Api::V1::ReportsController < Api::V1::BaseController
     else
       render json: @report.errors, status: :unprocessable_entity
     end
-  end
-
-  # DELETE /reports/1
-  def destroy
-    @report.destroy
-    head :no_content
   end
 
   private
