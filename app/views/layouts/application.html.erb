@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <title>NeinDb</title>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
@@ -11,10 +11,15 @@
       <div class="alert alert-danger">This page works better with JavaScript. For the responsive features JavaScript is required.</div>
     </noscript>
 
+    <a name="page-top"></a>
     <%= render 'layouts/navbar' %>
     <%= render 'layouts/flashes' %>
+
+    <main>
+      <%= yield %>
+    </main>
     
-  <%= yield %>
+    <%= render 'layouts/footer' %>
 
   </body>
 </html>

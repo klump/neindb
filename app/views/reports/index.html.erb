@@ -1,6 +1,8 @@
-<h1>Listing Reports</h1>
+<div class="page-header">
+  <h1>Reports <small>Overview</small></h1>
+</div>
 
-<table>
+<table class="table table-condensed table-striped">
   <thead>
     <tr>
       <th>Status</th>
@@ -13,10 +15,10 @@
   <tbody>
     <% @reports.each do |report| %>
       <tr>
-        <td><%= report.status %></td>
-        <td><%= report.starttime %></td>
-        <td><%= report.endtime %></td>
-        <td><%= link_to 'Show', report %></td>
+        <td><%= color_status report.status %></td>
+        <td><%= l report.starttime %></td>
+        <td><%= l report.endtime %></td>
+        <td><%= link_to 'Details', report %></td>
       </tr>
     <% end %>
   </tbody>

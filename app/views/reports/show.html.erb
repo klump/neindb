@@ -1,21 +1,26 @@
-<p>
-  <strong>Status:</strong>
-  <%= @report.status %>
-</p>
+<div class="page-header">
+  <h1>Reports <small>Details</small></h1>
+</div>
 
-<p>
-  <strong>Starttime:</strong>
-  <%= @report.starttime %>
-</p>
+<h2>Summary</h2>
 
-<p>
-  <strong>Endtime:</strong>
-  <%= @report.endtime %>
-</p>
+<table class="table">
+  <tr>
+    <th scope="row">Status</th>
+    <td><%= color_status @report.status %></td>
+  </tr>
+  <tr>
+    <th scope="row">Started</th>
+    <td><%= l @report.starttime%></td>
+  </tr>
+  <tr>
+    <th scope="row">Finished</th>
+    <td><%= l @report.endtime %></td>
+  </tr>
+</table>
 
-<p>
-  <strong>Data:</strong>
-  <%= @report.data %>
-</p>
+<p><%= link_to 'Back', reports_path %><p>
 
-<%= link_to 'Back', reports_path %>
+<h2>Attached data</h2>
+
+<%= render 'data' %>

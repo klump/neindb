@@ -1,0 +1,24 @@
+<nav>
+  <ol class="breadcrumb">
+    <% @report.data.keys.each do |collector| %>
+      <li><a href="#<%= collector %>"><%= collector %></a></li>
+    <% end %>
+  </ol>
+</nav>
+
+<% @report.data.each do |collector,information| %>
+  <a name="<%= collector %>"></a>
+  <h3><%= collector %></h3>
+  <div class="row">
+  <% information.each do |type,value| %>
+    <% unless value.blank? %>
+    <div class="col-sm-1">
+      <%= type %>
+    </div>
+    <div class="col-sm-11">
+      <pre><%= value %></pre>
+    </div>
+    <% end %>
+  <% end %>
+  </div>
+<% end %>
