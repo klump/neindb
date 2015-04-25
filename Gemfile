@@ -33,6 +33,9 @@ gem 'devise'
 gem 'apipie-rails'
 gem 'RedCloth'
 
+# Bootstrap for the design
+gem 'boostrap-sass'
+
 group :development, :test do
   # Generate ERD graphs from the database schema
   gem 'rails-erd'
