@@ -1,0 +1,31 @@
+<div class="navbar navbar-static-top navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".bs-nein-navbar-collapse">
+        <span class="sr-only">Toogle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="<%= root_path %>">NEIN db</a>
+    </div>
+
+    <nav class="collapse navbar-collapse bs-nein-navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li><a href="<%= root_path %>">Dashboard</a></li>
+        <li><a href="<%= assets_path %>">Assets</a></li>
+        <li><a href="<%= reports_path %>">Reports</a></li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Username <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Edit profile</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Logout</a></li>
+          </ul>
+        </li>
+    </nav>
+  </div>
+</div>

@@ -7,13 +7,19 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <noscript>
+    <div class="alert alert-danger">This page works better with JavaScript. For the responsive features JavaScript is required.</div>
+  </noscript>
+
+  <%= render 'layouts/navbar' %>
+
   <% if notice || alert %>
     <div class="flash">
       <% if notice %>
-        <div class="notice"><%= notice %></div>
+        <div class="alert alert-success"><%= notice %></div>
       <% end %>
       <% if alert %>
-        <div class="alert"><%= alert %></div>
+        <div class="alert alert-danger"><%= alert %></div>
       <% end %>
     </div>
   <% end %>
