@@ -4,6 +4,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string :name,               null: false, default: ""
       t.string :username,           null: false, default: ""
       t.string :role,               null: false, default: ""
+      t.string :auth_token,         null: false, default: ""
 
       ## Database authenticatable
       t.string :email,              null: false, default: ""
@@ -43,5 +44,6 @@ class DeviseCreateUsers < ActiveRecord::Migration
     # add_index :users, :reset_password_token, unique: true
     # add_index :users, :confirmation_token,   unique: true
     # add_index :users, :unlock_token,         unique: true
+    add_index :users, :auth_token,           unique: true
   end
 end

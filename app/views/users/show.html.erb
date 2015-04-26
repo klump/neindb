@@ -22,6 +22,18 @@
   <%= @user.role %>
 </p>
 
+<% if @user.last_sign_in_at && @user.last_sign_in_ip %>
+  <p>
+    <strong>Last sign-in:</strong>
+    <%= l @user.last_sign_in_at %> from <%= @user.last_sign_in_ip %>
+  </p>
+<% end %>
+
+<p>
+  <strong>API token:</strong>
+  <code><%= @user.auth_token %></code>
+</p>
+
 <nav>
   <ul class="nav nav-pills">
     <li><%= link_to 'Edit', edit_user_path(@user) %></li>

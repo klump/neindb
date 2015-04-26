@@ -1,5 +1,8 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action except: [:edit, :update] do
+    |controller| controller.require_role_authorization(:admin)
+  end
 
   # GET /users
   # GET /users.json
@@ -19,6 +22,8 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    # Non admin users may only edit themselves
+    raise User::NotAuthorized unless ( current_user.admin? || current_user == @user )
   end
 
   # POST /users
@@ -40,6 +45,12 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+    # Non admin users may only edit themselves
+    raise User::NotAuthorized unless ( current_user.admin? || current_user == @user )
+
+    # Generate a new auth_token if requested
+    @user.generate_auth_token if user_params[:new_token]
+
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
@@ -69,6 +80,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :username, :email, :role, :current_password, :password, :password_confirmation)
+      params.require(:user).permit(:name, :username, :email, :role, :password, :password_confirmation, :new_token)
     end
 end

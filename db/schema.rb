@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(version: 20150420201110) do
     t.string   "name",               default: "", null: false
     t.string   "username",           default: "", null: false
     t.string   "role",               default: "", null: false
+    t.string   "auth_token",         default: "", null: false
     t.string   "email",              default: "", null: false
     t.string   "encrypted_password", default: "", null: false
     t.integer  "sign_in_count",      default: 0,  null: false
@@ -87,6 +88,7 @@ ActiveRecord::Schema.define(version: 20150420201110) do
     t.datetime "updated_at"
   end
 
+  add_index "users", ["auth_token"], name: "index_users_on_auth_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["name"], name: "index_users_on_name", unique: true, using: :btree
 
