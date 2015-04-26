@@ -1,16 +1,12 @@
 class User < ActiveRecord::Base
   # Different access levels, every level inherits the permissions
   # from the levels below.
-  #   read - only read operations are allowed
-  #   insert - like read but with permissions to enter new data
-  #   full - like insert but with permissions to delete objects
-  #   admin - like full but may do everything (user mangement etc)
-  PERMISSIONS = {
-    admin: %w(admin full insert read),
-    full: %w(full insert read),
-    insert: %w(insert read),
-    read: %w(read)
-  }
+  #   admin       may do everything (even manage users)
+  #   user        may manage the inventory
+  #   api-full    manage the inventory via the API
+  #   api-insert  add information to the inventory via the API
+  #   api-read    read only access to the inventory via the API
+  ROLES= %w(admin user api-full api-insert api-read)
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -20,14 +16,16 @@ class User < ActiveRecord::Base
   #       :recoverable, :rememberable, :trackable, :validatable
   devise :database_authenticatable, :trackable
 
-  # Virtual attribute for authenticating by either username or email
-  # This is in addition to a real persisted field like 'username'
-  attr_accessor :login
+  # :login  Virtual attribute for authenticating by either username or email
+  #         This is in addition to a real persisted field like 'username'
+  # :current_password   Forces the user to enter the current password to update
+  #                     their profile. Not required for admins though
+  attr_accessor :login, :current_password
 
   validates :username, presence: true, uniqueness: { case_sensitive: false }
   validates :name, presence: true
   validates :email, presence: true, uniqueness: { case_sensitive: false }
-  validates :access, presence: true, inclusion: ACCESS
+  validates :role, presence: true, inclusion: ROLES
 
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
@@ -39,7 +37,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def admin?
-    sufficient_access :admin
+  def role?(base_role)
+    ROLES.index(base_role.to_s) <= ROLEX.index(role)
   end
 end

@@ -29,13 +29,7 @@
       <%= f.email_field :email, class: ['form-control'] %>
     </div>
   </div>
-  <div class="field">
-    <%= f.label :access, class: ['col-sm-2', 'control-label'] %>
-    <div class="col-sm-4">
-      <%= f.select :access, options_for_select(User::ACCESS), { prompt: @user.access }, { class: ['form-control'] } %>
-    </div>
-  </div>
-  <% unless current_user.admin? %>
+  <% unless current_user.role(:admin) %>
     <div class="field">
       <%= f.label :current_password, class: ['col-sm-2', 'control-label'] %>
       <div class="col-sm-4">

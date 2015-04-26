@@ -26,8 +26,10 @@ class Api::V1::BaseController < ActionController::Base
         puts errors.full_messages if errors.respond_to? :full_messages
       end
 
-      head status: status and return if errors.empty?
-      
-      render json: { errors: errors }, status: status
+      if errors.empty?
+        head status: status
+      else
+        render json: { errors: errors }, status: status
+      end
     end
 end

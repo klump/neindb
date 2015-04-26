@@ -1,7 +1,7 @@
 require 'api_constraints'
 
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, path: 'auth'
 
   resources :users
   resources :assets

@@ -7,7 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 User.create([
-  { name: 'Administrator', username: 'admin', email: 'email@example.com', password: 'password', password_confirmation: 'password', access: 'admin' },
+  { name: 'Administrator', username: 'admin', email: 'email@example.com', password: 'password', password_confirmation: 'password', role: 'admin' },
 ])
 
 Asset::Computer.create([

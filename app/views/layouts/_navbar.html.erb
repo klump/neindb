@@ -10,25 +10,27 @@
       <a class="navbar-brand" href="<%= root_path %>">NEIN db</a>
     </div>
 
-    <nav class="collapse navbar-collapse bs-nein-navbar-collapse">
-      <ul class="nav navbar-nav">
-        <li><a href="<%= root_path %>">Dashboard</a></li>
-        <li><a href="<%= assets_path %>">Assets</a></li>
-        <li><a href="<%= reports_path %>">Reports</a></li>
-        <% if current_user.admin? %>
-          <li><a href="<%= users_path %>">Users</a></li>
-        <% end %>
-      </ul>
+    <% if current_user %>
+      <nav class="collapse navbar-collapse bs-nein-navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li><%= link_to 'Dashboard', root_path %></li>
+          <li><%= link_to 'Assets', assets_path %></li>
+          <li><%= link_to 'Reports', reports_path %></li>
+          <% if can? :manage, User %>
+            <li><%= link_to 'Users', users_path %></li>
+          <% end %>
+        </ul>
 
-      <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><%= current_user.name %><span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><%= link_to 'Edit profile', edit_user_path(current_user) %></li>
-            <li class="divider"></li>
-            <li><%= link_to 'Logout', destroy_user_session_path %></li>
-          </ul>
-        </li>
-    </nav>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><%= current_user.name %><span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><%= link_to 'Edit profile', edit_user_path(current_user) %></li>
+              <li class="divider"></li>
+              <li><%= link_to 'Logout', destroy_user_session_path, method: :delete %></li>
+            </ul>
+          </li>
+      </nav>
+    <% end %>
   </div>
 </div>
