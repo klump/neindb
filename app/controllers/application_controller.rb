@@ -9,13 +9,8 @@ class ApplicationController < ActionController::Base
   # Require authentication by default
   before_action :authenticate_user!
 
-  # Always check if the user is authorized to perform the requested action
-  # Make an exeption for devise
-  check_authorization unless: :devise_controller?
-
   # Devise stuff
   before_action :configure_permitted_parameters, if: :devise_controller?
-
 
   # Change where the user is redirected to after logout
   def after_sign_out_path_for(resource_or_scope)

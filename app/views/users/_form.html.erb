@@ -29,7 +29,17 @@
       <%= f.email_field :email, class: ['form-control'] %>
     </div>
   </div>
-  <% unless current_user.role(:admin) %>
+  <div class="field">
+    <%= f.label :role, class: ['col-sm-2', 'control-label'] %>
+    <div class="col-sm-4">
+      <% if current_user.admin? %>
+        <%= f.select :role, options_for_select(User::ROLES, @user.role), {}, { class: ['form-control'] } %>
+      <% else %>
+          <p class="form-control-static"><%= @user.role %></p>
+      <% end %>
+    </div>
+  </div>
+  <% unless current_user.admin? %>
     <div class="field">
       <%= f.label :current_password, class: ['col-sm-2', 'control-label'] %>
       <div class="col-sm-4">

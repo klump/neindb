@@ -37,7 +37,11 @@ class User < ActiveRecord::Base
     end
   end
 
+  def admin?
+    role?(:admin)
+  end
+
   def role?(base_role)
-    ROLES.index(base_role.to_s) <= ROLEX.index(role)
+    ROLES.index(base_role.to_s) >= ROLES.index(role)
   end
 end
