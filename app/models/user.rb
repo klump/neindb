@@ -1,5 +1,16 @@
 class User < ActiveRecord::Base
-  ACCESS = %w(full insert read)
+  # Different access levels, every level inherits the permissions
+  # from the levels below.
+  #   read - only read operations are allowed
+  #   insert - like read but with permissions to enter new data
+  #   full - like insert but with permissions to delete objects
+  #   admin - like full but may do everything (user mangement etc)
+  PERMISSIONS = {
+    admin: %w(admin full insert read),
+    full: %w(full insert read),
+    insert: %w(insert read),
+    read: %w(read)
+  }
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -26,5 +37,9 @@ class User < ActiveRecord::Base
       conditions[:email].downcase! if conditions[:email]
       where(conditions.to_hash).first
     end
+  end
+
+  def admin?
+    sufficient_access :admin
   end
 end

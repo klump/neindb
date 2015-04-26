@@ -15,15 +15,18 @@
         <li><a href="<%= root_path %>">Dashboard</a></li>
         <li><a href="<%= assets_path %>">Assets</a></li>
         <li><a href="<%= reports_path %>">Reports</a></li>
+        <% if current_user.admin? %>
+          <li><a href="<%= users_path %>">Users</a></li>
+        <% end %>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Username <span class="caret"></span></a>
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><%= current_user.name %><span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Edit profile</a></li>
+            <li><%= link_to 'Edit profile', edit_user_path(current_user) %></li>
             <li class="divider"></li>
-            <li><a href="#">Logout</a></li>
+            <li><%= link_to 'Logout', destroy_user_session_path %></li>
           </ul>
         </li>
     </nav>

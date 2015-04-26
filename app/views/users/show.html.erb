@@ -1,4 +1,6 @@
-<p id="notice"><%= notice %></p>
+<div class="page-header">
+  <h1>Users <small>Details for an user</small></h1>
+</div>
 
 <p>
   <strong>Name:</strong>
@@ -20,5 +22,9 @@
   <%= @user.access %>
 </p>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<nav>
+  <ul class="nav nav-pills">
+    <li><%= link_to 'Edit', edit_user_path(@user) %></li>
+    <li><%= link_to 'Back', users_path %></li>
+  </ul>
+</nav>
