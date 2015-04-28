@@ -20,6 +20,7 @@ require 'rails_helper'
 
 RSpec.describe ReportsController, type: :controller do
   login_as :user
+
   it_requires_authentication
 
   describe "GET #index" do

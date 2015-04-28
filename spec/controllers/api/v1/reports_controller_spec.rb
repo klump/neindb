@@ -2,9 +2,13 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::ReportsController, type: :controller do
   configure_api version: 1
-  login_as :user
 
   it_requires_authentication
+
+  before(:each) do
+    @user = FactoryGirl.create(:user)
+    @request.headers['Authorization'] = @user.auth_token
+  end
 
   describe 'GET #index' do
     before(:each) do

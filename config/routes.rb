@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     apipie
     scope module: :v1, constraints: ApiConstraints.new( version: 1, default: true ) do
+      root 'base#index'
       resources :users, only: [:show]
       resources :assets, only: [:index, :show, :create, :update, :destroy] do
         get 'search', on: :collection

@@ -4,7 +4,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   # GET /users/1
   def show
     # Non admin users may only view themselves
-    raise User::NotAuthorized unless ( current_user.admin? || current_user == @user )
+    raise User::Forbidden unless ( current_user.admin? || current_user == @user )
   end
 
   private

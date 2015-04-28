@@ -25,7 +25,9 @@ module ControllerMacros
     resources.each do |resource,verbs| 
       verbs.each do |verb|
         it "refuses access to #{verb.to_s.upcase} ##{resource} for unauthenticated users" do
-          sign_out(:user)
+          # invalidate both the devise authorization and the authorization token for the api
+          sign_out :user
+          @request.headers['Authorization'] = nil
 
           begin
             case verb
@@ -42,7 +44,7 @@ module ControllerMacros
             end
           rescue ActionController::UrlGenerationError
             # Uncomment this line to generate messages if a tested route does not exist
-            # skip "No route four #{verb.to_s.upcase} ##{resource}"
+            skip "No route four #{verb.to_s.upcase} ##{resource}"
           else
             if request.format == :json
               # API responses should have an approriate HTTP status code
