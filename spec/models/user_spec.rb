@@ -6,12 +6,12 @@ describe User, type: :model do
 
   describe "#generate_auth_token" do
     it "generates a unique token" do
-      # fake Devise, so that Devise.friendly_token returns a fixed value
-      allow(Devise).to receive(:friendly_token).and_return("a_unique_token_123")
+      # fake the return value of Base64.urlsafe_encode64 to always return a fixed string 
+      allow(Base64).to receive(:urlsafe_encode64).and_return('4PbXV8BoguqZXDq-rEyVYYqzbksj91tG-3UqEFEeJRkiYd2Gl9u0KEAXji2JA1r68Hl9HDyt5A7_D7oxs0QYxg==')
 
       @user.generate_auth_token
 
-      expect(@user.auth_token).to eql "a_unique_token_123"
+      expect(@user.auth_token).to eql '4PbXV8BoguqZXDq-rEyVYYqzbksj91tG-3UqEFEeJRkiYd2Gl9u0KEAXji2JA1r68Hl9HDyt5A7_D7oxs0QYxg=='
     end
 
     it "generates a new token if the token is already be issued" do

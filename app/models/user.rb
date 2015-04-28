@@ -1,7 +1,6 @@
 class User < ActiveRecord::Base
-  # Exceptions
-  class NotAuthorized < StandardError; end
-  class AuthenticationRequired < StandardError; end
+  class Unauthorized < StandardError; end
+  class Forbidden < StandardError; end
 
   # Different access levels, every level inherits the permissions
   # from the levels below.
@@ -49,7 +48,7 @@ class User < ActiveRecord::Base
 
   def generate_auth_token
     begin
-      self.auth_token = Devise.friendly_token
+      self.auth_token = Base64.urlsafe_encode64(Digest::SHA512.digest('nein-db' + Kernel.srand.to_s))
     end while User.find_by_auth_token(auth_token)
   end
 

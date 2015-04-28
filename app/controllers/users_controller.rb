@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action except: [:edit, :update] do
+  before_action except: [:show, :edit, :update] do
     |controller| controller.require_role_authorization(:admin)
   end
 
@@ -13,6 +13,8 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    # Non admin users may only show themselves
+    raise User::NotAuthorized unless ( current_user.admin? || current_user == @user )
   end
 
   # GET /users/new
