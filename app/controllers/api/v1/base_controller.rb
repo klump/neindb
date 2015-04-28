@@ -22,10 +22,6 @@ class Api::V1::BaseController < ApplicationController #ActionController::Base
     end
 
     def api_error(status: 500, error: "")
-      unless Rails.env.production?
-        puts errors.full_messages if errors.respond_to? :full_messages
-      end
-
       if error.blank?
         head status: status
       else

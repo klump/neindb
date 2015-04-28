@@ -48,3 +48,14 @@ RSpec.configure do |config|
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
 end
+
+# devise stuff
+require 'devise'
+require_relative 'support/nein_db_api_macros.rb'
+require_relative 'support/controller_macros.rb'
+RSpec.configure do |config|
+  config.include Devise::TestHelpers, type: :controller
+
+  config.extend ControllerMacros, type: :controller
+  config.extend NeinDbApiMacros, type: :controller
+end

@@ -5,12 +5,12 @@ class User < ActiveRecord::Base
 
   # Different access levels, every level inherits the permissions
   # from the levels below.
-  #   admin       may do everything (even manage users)
-  #   user        may manage the inventory
-  #   api-full    manage the inventory via the API
-  #   api-insert  add information to the inventory via the API
   #   api-read    read only access to the inventory via the API
-  ROLES= %w(admin user api-full api-insert api-read)
+  #   api-insert  add information to the inventory via the API
+  #   api-full    manage the inventory via the API
+  #   user        may manage the inventory
+  #   admin       may do everything (even manage users)
+  ROLES = %w(api-read api-insert api-full user admin)
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -58,6 +58,6 @@ class User < ActiveRecord::Base
   end
 
   def role?(base_role)
-    ROLES.index(base_role.to_s) >= ROLES.index(role)
+    ROLES.index(base_role.to_s) <= ROLES.index(role)
   end
 end

@@ -4,6 +4,6 @@ class Report < ActiveRecord::Base
   has_many :revisions, as: :trigger
   belongs_to :asset
 
-  validates :status, inclusion: STATUS, allow_nil: true
+  validates :status, presence: true, inclusion: STATUS
   validates :starttime, presence: true
 end

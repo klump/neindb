@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-describe Api::V1::ReportsController, type: :controller  do
-  before(:each) { 
-    request.headers['X-Nein-API-Version'] = 1
-    request.headers['Accept'] = :json
-  }
+RSpec.describe Api::V1::ReportsController, type: :controller  do
+  configure_request
+  login_as :user
 
-  describe '#index (GET /reports)' do
+  it_requires_authentication
+
+  describe 'GET #index' do
     before(:each) do
       @reports = []
       @reports << FactoryGirl.create(:report)
@@ -25,7 +25,7 @@ describe Api::V1::ReportsController, type: :controller  do
     end
   end
 
-  describe '#show (GET /report/:id)' do
+  describe 'GET #show' do
     context 'when the report exists' do
       before(:each) do
         @report = FactoryGirl.create(:report)
@@ -53,12 +53,12 @@ describe Api::V1::ReportsController, type: :controller  do
 
       it 'returns some error message' do
         json = JSON.parse(response.body, symbolize_names: true)
-        expect(json).to have_key(:errors)
+        expect(json).to have_key(:error)
       end
     end
   end
 
-  describe '#create (POST /reports)' do
+  describe 'POST #create' do
     context 'when is successfully created' do
       before(:each) do
         @report_attributes = FactoryGirl.attributes_for :report
@@ -93,7 +93,7 @@ describe Api::V1::ReportsController, type: :controller  do
     end
   end
 
-  describe '#update (PUT /reports/:id)' do
+  describe 'PUT/PATCH #update' do
     context 'when is successfully updated' do
       before(:each) do
         @report = FactoryGirl.create(:report_running)
