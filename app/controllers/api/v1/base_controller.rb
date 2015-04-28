@@ -1,4 +1,4 @@
-class Api::V1::BaseController < ActionController::Base
+class Api::V1::BaseController < ApplicationController #ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :null_session
@@ -14,22 +14,22 @@ class Api::V1::BaseController < ActionController::Base
     end
 
     def missing_parameter
-      api_error(status: 400, errors: 'Parameter missing')
+      api_error(status: 400, error: 'Parameter missing')
     end
 
     def not_found
-      api_error(status: 404, errors: 'Not found')
+      api_error(status: 404, error: 'Not found')
     end
 
-    def api_error(status: 500, errors: [])
+    def api_error(status: 500, error: "")
       unless Rails.env.production?
         puts errors.full_messages if errors.respond_to? :full_messages
       end
 
-      if errors.empty?
+      if error.blank?
         head status: status
       else
-        render json: { errors: errors }, status: status
+        render json: { error: error }, status: status
       end
     end
 end
