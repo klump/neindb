@@ -8,19 +8,51 @@ module ControllerMacros
   end
 
   def it_requires_authentication
-    it "refuses access for unauthenticated users" do
-      sign_out(:user)
+    crud = {
+      index: [:get],
+      show: [:get],
+      new: [:get],
+      edit: [:get],
+      create: [:post],
+      update: [:put, :patch],
+      destroy: [:delete]
+    }
 
-      if request.format == :json
-        # API requests should be in JSON format
-        get :index, format: :json
+    it_requires_authentication_for crud
+  end
 
-        # API responses should have an approriate HTTP status code
-        expect(response).to have_http_status(401)
-      else
-        get :index
-        # Normal web responses should redirect unauthenticated requests to the login page
-        expect(response).to redirect_to(new_user_session_url)
+  def it_requires_authentication_for resources
+    resources.each do |resource,verbs| 
+      verbs.each do |verb|
+        it "refuses access to #{verb.to_s.upcase} ##{resource} for unauthenticated users" do
+          sign_out(:user)
+
+          begin
+            case verb
+            when :get
+              get resource
+            when :post
+              post resource
+            when :put
+              put resource
+            when :patch
+              patch resource
+            when :delete
+              delete resource
+            end
+          rescue ActionController::UrlGenerationError
+            # Uncomment this line to generate messages if a tested route does not exist
+            # skip "No route four #{verb.to_s.upcase} ##{resource}"
+          else
+            if request.format == :json
+              # API responses should have an approriate HTTP status code
+              expect(response).to have_http_status(401)
+            else
+              # Normal web responses should redirect unauthenticated requests to the login page
+              expect(response).to redirect_to(new_user_session_url)
+            end
+          end
+        end
       end
     end
   end

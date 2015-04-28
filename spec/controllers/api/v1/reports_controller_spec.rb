@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe Api::V1::ReportsController, type: :controller  do
-  configure_request
+RSpec.describe Api::V1::ReportsController, type: :controller do
+  configure_api version: 1
   login_as :user
 
   it_requires_authentication
@@ -13,7 +13,7 @@ RSpec.describe Api::V1::ReportsController, type: :controller  do
       @reports << FactoryGirl.create(:report_running)
       @reports << FactoryGirl.create(:report_failed)
 
-      get :index, format: :json
+      get :index
     end
 
     it 'responds with a HTTP 200 status code' do
@@ -30,7 +30,7 @@ RSpec.describe Api::V1::ReportsController, type: :controller  do
       before(:each) do
         @report = FactoryGirl.create(:report)
 
-        get :show, id: @report.id, format: :json
+        get :show, id: @report.id
       end
 
       it 'responds with a HTTP 200 status code' do
@@ -44,7 +44,7 @@ RSpec.describe Api::V1::ReportsController, type: :controller  do
 
     context 'when the report does not exist' do
       before(:each) do
-        get :show, id: 42, format: :json
+        get :show, id: 42
       end
 
       it 'responds with a HTTP 404 status code' do
@@ -63,7 +63,7 @@ RSpec.describe Api::V1::ReportsController, type: :controller  do
       before(:each) do
         @report_attributes = FactoryGirl.attributes_for :report
 
-        post :create, { report: @report_attributes }, format: :json
+        post :create, { report: @report_attributes }
       end
 
       it 'responds with a HTTP 201 status code' do
@@ -78,7 +78,7 @@ RSpec.describe Api::V1::ReportsController, type: :controller  do
       before(:each) do
         @report_attributes = FactoryGirl.attributes_for :report_invalid
 
-        post :create, { report: @report_attributes }, format: :json
+        post :create, { report: @report_attributes }
       end
 
       it 'responds with a HTTP 422 status code' do
@@ -109,7 +109,7 @@ RSpec.describe Api::V1::ReportsController, type: :controller  do
           }
         }
 
-        put :update, { id: @report.id, report: @new_report_attributes }, format: :json
+        put :update, { id: @report.id, report: @new_report_attributes }
       end
 
       it 'responds with a HTTP 200 status code' do
@@ -129,7 +129,7 @@ RSpec.describe Api::V1::ReportsController, type: :controller  do
           starttime: nil
         }
 
-        put :update, { id: @report.id, report: @new_report_attributes }, format: :json
+        put :update, { id: @report.id, report: @new_report_attributes }
       end
 
       it 'responds with a HTTP 422 status code' do

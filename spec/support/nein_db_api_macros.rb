@@ -1,8 +1,8 @@
 module NeinDbApiMacros
-  def configure_request version=1
+  def configure_api options
     before(:each) do
-      request.headers['X-Nein-API-Version'] = version
-      request.headers['Accept'] = :json
+      @request.headers['X-Nein-API-Version'] = options[:version]
+      @request.headers['Accept'] = :json
     end
   end
 end
