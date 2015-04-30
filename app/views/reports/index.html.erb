@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <th>Status</th>
+      <th>Worker</th>
       <th>Starttime</th>
       <th>Endtime</th>
       <th></th>
@@ -16,6 +17,7 @@
     <% @reports.each do |report| %>
       <tr>
         <td><%= color_status report.status %></td>
+        <td><%= color_worker_status report.worker_status %></td>
         <td><%= l report.starttime %></td>
         <% if report.endtime %>
           <td><%= l report.endtime %></td>
