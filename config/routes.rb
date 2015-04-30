@@ -12,8 +12,8 @@ Rails.application.routes.draw do
   resources :reports, only: [:show, :index]
 
   # the sidekiq webinterface only for admins
-  get '/sidekiq' => 'dashboards#sidekiq'
   authenticate :user, lambda { |u| u.admin? } do
+    get '/sidekiq' => 'dashboards#sidekiq'
     mount Sidekiq::Web => '/sidekiq/monitor'
   end
 
