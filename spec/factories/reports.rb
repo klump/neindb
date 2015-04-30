@@ -17,6 +17,7 @@ FactoryGirl.define do
         }
       }
     }
+    user { FactoryGirl.create(:user) }
   end
   factory :report_failed, class: Report  do
     status :fail
@@ -27,12 +28,14 @@ FactoryGirl.define do
         errors: "Could not find a valid ID for the asset"
       }
     }
+    user { FactoryGirl.create(:user) }
   end
   factory :report_running, class: Report do
     status :running
     starttime { 1.minutes.ago }
     endtime nil
     data nil
+    user { FactoryGirl.create(:user) }
   end
 
   # invalid report to test validations
@@ -41,5 +44,6 @@ FactoryGirl.define do
     starttime "invalid"
     endtime "invalid"
     data [1, 2, 3, 4]
+    user { FactoryGirl.create(:user) }
   end
 end

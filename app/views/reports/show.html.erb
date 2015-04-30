@@ -15,7 +15,19 @@
   </tr>
   <tr>
     <th scope="row">Finished</th>
-    <td><%= l @report.endtime %></td>
+    <% if @report.endtime %>
+      <td><%= l @report.endtime %></td>
+    <% else %>
+      <td>&nbsp;</td>
+    <% end %>
+  </tr>
+  <tr>
+    <th scope="row">Submitted by</td>
+    <% if current_user.admin? %>
+      <td><%= link_to @report.user.name, @report.user %></td>
+    <% else %>
+      <td><%= @report.user.name %></td>
+    <% end %>
   </tr>
 </table>
 

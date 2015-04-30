@@ -7,7 +7,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
   # authenticate the user
   before(:each) do
-    @user = FactoryGirl.create(:user)
+    @user = FactoryGirl.create(:admin)
     @request.headers['Authorization'] = "#{@user.username}+#{@user.auth_token}"
   end
 
@@ -46,9 +46,8 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     end
     context 'when the requesting user is not an admin' do
       before(:each) do
-        sign_out(:user)
         @user = FactoryGirl.create(:user)
-        sign_in @user
+        @request.headers['Authorization'] = "#{@user.username}+#{@user.auth_token}"
       end
 
       it 'should allow access to the user himself' do

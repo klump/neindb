@@ -74,6 +74,10 @@ RSpec.describe Api::V1::ReportsController, type: :controller do
         expect(response).to have_http_status(201)
       end
 
+      it 'saves the current user in connection to the report' do
+        expect(assigns(:report).user).to eq @user
+      end
+
       it 'loads the information about the new report into @report' do
         expect(assigns(:report).status).to eq @report_attributes[:status].to_s
       end

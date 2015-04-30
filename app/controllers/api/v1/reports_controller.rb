@@ -13,6 +13,7 @@ class Api::V1::ReportsController < Api::V1::BaseController
   # POST /reports
   def create
     @report = Report.new(report_params)
+    @report.user = current_user
 
     if @report.save
       render :show, status: :created, location: @report

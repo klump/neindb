@@ -17,7 +17,11 @@
       <tr>
         <td><%= color_status report.status %></td>
         <td><%= l report.starttime %></td>
-        <td><%= l report.endtime %></td>
+        <% if report.endtime %>
+          <td><%= l report.endtime %></td>
+        <% else %>
+          <td>&nbsp;</td>
+        <% end %>
         <td><%= link_to 'Details', report %></td>
       </tr>
     <% end %>

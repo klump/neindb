@@ -30,6 +30,9 @@ class User < ActiveRecord::Base
   # generate a auth token for new users
   before_create :generate_auth_token
 
+  has_many :reports
+  has_many :revisions, as: :trigger
+
   validates :username, presence: true, uniqueness: { case_sensitive: false }
   validates :name, presence: true
   validates :email, presence: true, uniqueness: { case_sensitive: false }

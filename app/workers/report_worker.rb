@@ -5,7 +5,7 @@ class ReportWorker
   end
 
   private
-  def analyze
-
+  def analyze(report_id)
+    report = Report.find(report_id)
   end
 end
