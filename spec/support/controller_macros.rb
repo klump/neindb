@@ -22,36 +22,43 @@ module ControllerMacros
   end
 
   def it_requires_authentication_for resources
-    resources.each do |resource,verbs| 
-      verbs.each do |verb|
-        it "refuses access to #{verb.to_s.upcase} ##{resource} for unauthenticated users" do
-          # invalidate both the devise authorization and the authorization token for the api
-          sign_out :user
-          @request.headers['Authorization'] = nil
+    context 'when not authenticated' do
+      resources.each do |resource,verbs| 
+        verbs.each do |verb|
+          it "it refuses access to #{verb.to_s.upcase} ##{resource.to_s}" do
+            # invalidate both the devise authorization and the authorization token for the api
+            sign_out :user
+            @request.headers['Authorization'] = nil
 
-          begin
-            case verb
-            when :get
-              get resource
-            when :post
-              post resource
-            when :put
-              put resource
-            when :patch
-              patch resource
-            when :delete
-              delete resource
+            # Options for the requests
+            options = {}
+            if @request.format == :json
+              options = { format: :json }
             end
-          rescue ActionController::UrlGenerationError
-            # Uncomment this line to generate messages if a tested route does not exist
-            skip "No route four #{verb.to_s.upcase} ##{resource}"
-          else
-            if request.format == :json
-              # API responses should have an approriate HTTP status code
-              expect(response).to have_http_status(401)
+
+            begin
+              case verb
+              when :get
+                get resource, options
+              when :post
+                post resource, options
+              when :put
+                put resource, options
+              when :patch
+                patch resource, options
+              when :delete
+                delete resource, options
+              end
+            rescue ActionController::UrlGenerationError
+              # Catch errors for nonexisting routes
             else
-              # Normal web responses should redirect unauthenticated requests to the login page
-              expect(response).to redirect_to(new_user_session_url)
+              if request.format == :json
+                # API responses should have an approriate HTTP status code
+                expect(response).to have_http_status(401)
+              else
+                # Normal web responses should redirect unauthenticated requests to the login page
+                expect(response).to redirect_to(new_user_session_url)
+              end
             end
           end
         end
