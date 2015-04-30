@@ -54,7 +54,7 @@ class UsersController < ApplicationController
     set_user
 
     # Generate a new auth_token if requested
-    @user.generate_auth_token if user_params[:new_token]
+    @user.generate_auth_token if user_params[:new_token] == "1"
 
     respond_to do |format|
       if @user.update(user_params)

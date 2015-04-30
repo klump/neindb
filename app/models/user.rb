@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
   #                     like 'username'
   # :current_password   Forces the user to enter the current password to update
   #                     their profile. Not required for admins though
-  # :new_auth_token     If set to true a new auth token will be generated
+  # :new_token          If set to true a new auth token will be generated
   attr_accessor :login, :current_password, :new_token
 
   # generate a auth token for new users
