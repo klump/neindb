@@ -3,4 +3,9 @@ class ReportWorker
 
   def perform(name, count)
   end
+
+  private
+  def analyze
+
+  end
 end

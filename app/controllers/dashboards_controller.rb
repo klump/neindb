@@ -1,6 +1,9 @@
 class DashboardsController < ApplicationController
   # GET /
-  # GET /.json
   def index
+  end
+
+  # GET /sidekiq
+  def sidekiq
   end
 end

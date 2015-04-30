@@ -1,4 +1,5 @@
 require 'api_constraints'
+require 'sidekiq/web'
 
 Rails.application.routes.draw do
   devise_for :users, path: 'auth'
@@ -9,6 +10,12 @@ Rails.application.routes.draw do
   resources :statuses, only: [:show, :index]
   resources :components
   resources :reports, only: [:show, :index]
+
+  # the sidekiq webinterface only for admins
+  get '/sidekiq' => 'dashboards#sidekiq'
+  authenticate :user, lambda { |u| u.admin? } do
+    mount Sidekiq::Web => '/sidekiq/monitor'
+  end
 
   namespace :api, defaults: { format: :json } do
     apipie

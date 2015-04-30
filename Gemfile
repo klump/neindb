@@ -25,6 +25,7 @@ gem 'cors'
 
 # Use sidekiq as workers
 gem 'sidekiq'
+gem 'sinatra', :require => nil # required for the sidekiq webinterface
 
 # Use devise for authentication
 gem 'devise'
