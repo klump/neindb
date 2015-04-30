@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:destroy]
   before_action except: [:show, :edit, :update] do
     |controller| controller.require_role_authorization(:admin)
   end
@@ -14,7 +14,8 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     # Non admin users may only show themselves
-    raise User::Forbidden unless ( current_user.admin? || current_user == @user )
+    raise User::Forbidden unless ( current_user.admin? || current_user.id == params[:id] )
+    set_user
   end
 
   # GET /users/new
@@ -25,7 +26,8 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit
     # Non admin users may only edit themselves
-    raise User::Forbidden unless ( current_user.admin? || current_user == @user )
+    raise User::Forbidden unless ( current_user.admin? || current_user.id == params[:id] )
+    set_user
   end
 
   # POST /users
@@ -48,7 +50,8 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1.json
   def update
     # Non admin users may only edit themselves
-    raise User::Forbidden unless ( current_user.admin? || current_user == @user )
+    raise User::Forbidden unless ( current_user.admin? || current_user.id == params[:id] )
+    set_user
 
     # Generate a new auth_token if requested
     @user.generate_auth_token if user_params[:new_token]
