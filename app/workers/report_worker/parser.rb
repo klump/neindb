@@ -5,7 +5,7 @@ class ReportWorker::Parser
   class InformationMissing < StandardError; end
 
   #
-  # Allows the registering of parsers for certain collectors
+  # Allows the registering of parsers for certain asset types
   #
   @@parsers = []
   def self.add(parser)
@@ -35,9 +35,11 @@ class ReportWorker::Parser
     report.save
 
     @@parsers.each do |parser|
-      begin
-        parser.analyze(report)
-      rescue ParseError
+      if parser::TYPES.include?(report.data["reporter"]["type"])
+        begin
+          parser.analyze(report)
+        rescue ParseError
+        end
       end
     end
 

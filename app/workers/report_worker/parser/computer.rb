@@ -3,6 +3,8 @@
 # object from a report.
 #
 class ReportWorker::Parser::Computer < ReportWorker::Parser
+  TYPES = %w(computer)
+
   def self.analyze(report)
     @report = report
     @report.worker_status = 'parsing'
