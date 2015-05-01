@@ -9,4 +9,15 @@ class Report < ActiveRecord::Base
   validates :status, presence: true, inclusion: STATUS
   validates :worker_status, inclusion: WORKER_STATUS, allow_nil: true
   validates :starttime, presence: true
+
+  def append collector, identifier, text
+    return unless text.is_a? String
+
+    @data = {} if @data.nil?
+    @data[collector] = {} if @data[collector].nil?
+    @data[collector][identifier] = "" if @data[collector][identifier].nil?
+
+    # append the text to the message
+    @data[collector][identifier] += "#{text}\n"
+  end
 end

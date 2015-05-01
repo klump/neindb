@@ -106,7 +106,7 @@ RSpec.describe Api::V1::ReportsController, type: :controller do
       before(:each) do
         @report = FactoryGirl.create(:report_running)
         @new_report_attributes = {
-          status: :pass,
+          status: :success,
           endtime: Time.now,
           data: {
             dmesg: {

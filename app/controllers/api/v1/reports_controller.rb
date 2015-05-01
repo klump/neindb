@@ -16,6 +16,9 @@ class Api::V1::ReportsController < Api::V1::BaseController
     @report.user = current_user
 
     if @report.save
+      # start the right worker
+      start_worker
+
       render :show, status: :created, location: @report
     else
       render json: @report.errors, status: :unprocessable_entity
@@ -25,6 +28,9 @@ class Api::V1::ReportsController < Api::V1::BaseController
   # PATCH/PUT /reports/1
   def update
     if @report.update(report_params)
+      # start the right worker
+      start_worker
+
       render :show, status: :ok, location: @report
     else
       render json: @report.errors, status: :unprocessable_entity
@@ -41,6 +47,18 @@ class Api::V1::ReportsController < Api::V1::BaseController
     def report_params
       params.require(:report).permit(:id, :asset_id, :status, :starttime, :endtime).tap do |whitelist|
         whitelist[:data] = params[:report][:data]
+      end
+    end
+
+    def start_worker
+      case @report.status
+      when "running"
+        # Running reports should have a timeout
+        ReportWorker::TimeoutChecker.perform_in(ReportWorker::TimeoutChecker::RUNNING_TIMEOUT, @report.id)
+      when "pass"
+        ReportWorker::Parser.perform(@report.id)
+      when "failure"
+        ReportWorker::Parser.perform(@report.id)
       end
     end
 end

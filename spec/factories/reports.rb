@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :report do
-    status :pass
+    status :success
     starttime { 5.minutes.ago }
     endtime { Time.now }
     data {
@@ -20,7 +20,7 @@ FactoryGirl.define do
     user { FactoryGirl.create(:user) }
   end
   factory :report_failed, class: Report  do
-    status :fail
+    status :failure
     starttime { 5.minutes.ago }
     endtime { 2.minutes.ago }
     data {
