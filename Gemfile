@@ -27,6 +27,9 @@ gem 'cors'
 gem 'sidekiq'
 gem 'sinatra', :require => nil # required for the sidekiq webinterface
 
+# Compare two activerecord objects and generate useful representation of changes
+gem 'activerecord-diff'
+
 # Use devise for authentication
 gem 'devise'
 
