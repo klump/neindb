@@ -79,4 +79,18 @@ class ReportWorker::Parser::Computer < ReportWorker::Parser
         @information[:location] = 'Unknown'
       end
     end
+
+    def compare(old, new)
+      diff = old.diff(new)
+
+      return if diff.empty?
+
+      # Create a revision
+      rev = Revision.new
+      rev.data = diff
+      rev.revisionable = new
+      rev.trigger = @report
+
+      rev.save
+    end
 end
