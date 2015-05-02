@@ -36,10 +36,11 @@ class ReportWorker::Parser
 
     @@parsers.each do |parser|
       if parser::TYPES.include?(report.data["reporter"]["type"])
-        begin
-          p = parser.new(report)
-          p.analyze
-        rescue ParseError
+        p = parser.new(report)
+        unless p.analyze
+          @report.worker_status = 'failure'
+          @report.save
+          raise ParserError
         end
       end
     end

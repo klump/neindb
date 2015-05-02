@@ -28,12 +28,7 @@ class ReportWorker::Parser::Computer < ReportWorker::Parser
     @computer.dimm_slots = @information[:dimm_slots]
     @computer.location = @information[:location]
 
-    if @computer.save
-      @report.worker_status = 'success'
-    else
-      @report.worker_status = 'failure'
-    end
-    @report.save
+    @computer.save
   end
 
   private
