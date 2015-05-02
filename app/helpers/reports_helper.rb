@@ -14,7 +14,7 @@ module ReportsHelper
     "<span class=\"label label-#{type}\">#{status.capitalize}</span>".html_safe
   end
 
-  def color_worker_status status
+  def color_parser_status status
     return if status.blank?
 
     type = nil

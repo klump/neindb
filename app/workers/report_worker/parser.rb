@@ -22,7 +22,7 @@ class ReportWorker::Parser
     report = Report.find(report_id)
 
     # Check if the report is already being processed/ was processed
-    case report.worker_status
+    case report.parser_status
     when "parsing"
       raise ReportWorker::AlreadyInProgress
     when "success"
@@ -31,22 +31,23 @@ class ReportWorker::Parser
       raise ReportWorker::AlreadyDone
     end
 
-    report.worker_status = 'parsing'
-    report.save
+    report.update!(parser_status: 'parsing')
+
+    # Start a timeout worker for the parser
+    ReportWorker::Parser::TimeoutChecker.perform_in(ReportWorker::Parser::TimeoutChecker::PARSING_TIMEOUT, report.id)
 
     @@parsers.each do |parser|
       if parser::TYPES.include?(report.data["reporter"]["type"])
         p = parser.new(report)
         unless p.analyze
-          @report.worker_status = 'failure'
-          @report.save
+          @report.update(parser_status: 'failure')
           raise ParserError
         end
       end
     end
 
+
     # everything went well
-    report.worker_status = 'success'
-    report.save
+    report.update!(parser_status: 'success')
   end
 end

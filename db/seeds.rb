@@ -8,15 +8,5 @@
 
 User.create([
   { name: 'Administrator', username: 'admin', email: 'email@example.com', password: 'password', password_confirmation: 'password', role: 'admin' },
-])
-
-Asset::Computer.create([
-  { name: '', properties: {
-    product_name: "Product name",
-    bios_version: "1a",
-    bios_vendor: "Some",
-    location: "Desk",
-    pci_slots: 1,
-    dimm_slots: 2}
-  }
+  { name: 'Reporter', username: 'reporter', email: 'reporter@example.com', password: 'password', password_confirmation: 'password', role: 'api-full' },
 ])

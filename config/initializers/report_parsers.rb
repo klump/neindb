@@ -1,1 +1,1 @@
-ReportWorker::Parser.add(ReportWorker::Parser::Computer)
+ReportWorker::Parser.add(ReportWorker::Parser::Asset::Computer)

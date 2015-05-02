@@ -2,24 +2,23 @@
 # This worker can use information to build a Asset::Computer
 # object from a report.
 #
-class ReportWorker::Parser::Computer < ReportWorker::Parser
+class ReportWorker::Parser::Asset::Computer < ReportWorker::Parser
   TYPES = %w(computer)
 
   def initialize(report)
     @report = report
-    @report.worker_status = 'parsing'
-    @report.save
-
     @information = {}
   end
 
-  def analyze(report)
+  def analyze
     # extract the necessary information to identify the computer
     parse_dmidecode
-    parse_lshw
-    parse_location
+    parse_reporter
 
-    @computer = Asset::Computer.find_or_create_by(name: @information[:name])
+    @computer = ::Asset::Computer.find_or_create_by(name: @information[:name])
+    # Duplicate the object for comparison
+    @computer_old = @computer.dup
+
     @computer.product_name = @information[:product_name]
     @computer.bios_vendor = @information[:bios_vendor]
     @computer.bios_version = @information[:bios_version]
@@ -27,6 +26,9 @@ class ReportWorker::Parser::Computer < ReportWorker::Parser
     @computer.pcie_slots = @information[:pcie_slots]
     @computer.dimm_slots = @information[:dimm_slots]
     @computer.location = @information[:location]
+
+    # Compare the old and the new computer
+    compare(@computer_old, @computer)
 
     @computer.save
   end
@@ -38,7 +40,7 @@ class ReportWorker::Parser::Computer < ReportWorker::Parser
         @information[:name] = $2
         @information[:product_name] = $4
       else
-        raise ReportWorker::InformationMissing
+        raise ReportWorker::Parser::InformationMissing
       end
 
       # BIOS Information
@@ -46,28 +48,20 @@ class ReportWorker::Parser::Computer < ReportWorker::Parser
         @information[:bios_vendor] = $1
         @information[:bios_version] = $2
       else
-        raise ReportWorker::InformationMissing
+        raise ReportWorker::Parser::InformationMissing
       end
 
       # PCI information
-      @information[:pci_slots] = 0
-      @report.data["dmidecode"]["output"].match(/^System Slot Information$\s+Designation: PCI(\d+)/m) do |m|
-        @information[:pci_slots] += 1
-      end
+      @information[:pci_slots] = @report.data["dmidecode"]["output"].scan(/^System Slot Information$\s+Designation: PCI(\d+)/m).count
 
       # PCIe information
-      @information[:pcie_slots] = 0
-      @report.data["dmidecode"]["output"].match(/^System Slot Information$\s+Designation: PCI EXPRESS (.+?)$/m) do |m|
-        @information[:pcie_slots] += 1
-      end
-    end
-
-    def parse_lshw
+      @information[:pcie_slots] = @report.data["dmidecode"]["output"].scan(/^System Slot Information$\s+Designation: PCI EXPRESS (.+?)$/m).count
+      
       # DIMM slots
-      if @report.data["lshw"]["output"] =~ /^Physical Memory Array$\s+Location: (.+?)$\s+Use: System Memory$\s+Error Correction Type: (.+?)$\s+Maximum Capacity: (.+?)$\s+Error Information Handle: (.+?)$\s+Number Of Devices: (\d+)$/m
-        @information[:dimm_slots] = $5
+      if @report.data["dmidecode"]["output"] =~ /^Physical Memory Array$\s+Location: System Board Or Motherboard$\s+Use: System Memory$\s+Error Correction Type: (.+?)$\s+Maximum Capacity: (.+?)$\s+Error Information Handle: (.+?)$\s+Number Of Devices: (\d+)$/m
+        @information[:dimm_slots] = $4
       else
-        raise ReportWorker::InformationMissing
+        raise ReportWorker::Parser::InformationMissing
       end
     end
 

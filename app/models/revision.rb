@@ -8,6 +8,5 @@ class Revision < ActiveRecord::Base
   validates :revisionable_id, presence: true
   validates :revisionable_type, presence: true
 
-  validates :old_data, presence: true
-  validates :new_data, presence: true
+  validates :data, presence: true
 end

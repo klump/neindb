@@ -51,12 +51,11 @@ ActiveRecord::Schema.define(version: 20150430150036) do
     t.datetime "updated_at",    null: false
     t.integer  "asset_id"
     t.integer  "user_id",       null: false
-    t.string   "worker_status"
+    t.string   "parser_status"
   end
 
   create_table "revisions", force: :cascade do |t|
-    t.json     "old_data"
-    t.json     "new_data"
+    t.json     "data"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.integer  "revisionable_id",   null: false
