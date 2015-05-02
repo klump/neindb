@@ -5,13 +5,15 @@
 class ReportWorker::Parser::Computer < ReportWorker::Parser
   TYPES = %w(computer)
 
-  def self.analyze(report)
+  def initialize(report)
     @report = report
     @report.worker_status = 'parsing'
     @report.save
 
     @information = {}
-  
+  end
+
+  def analyze(report)
     # extract the necessary information to identify the computer
     parse_dmidecode
     parse_lshw

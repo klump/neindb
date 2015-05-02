@@ -55,10 +55,9 @@ class Api::V1::ReportsController < Api::V1::BaseController
       when "running"
         # Running reports should have a timeout
         ReportWorker::TimeoutChecker.perform_in(ReportWorker::TimeoutChecker::RUNNING_TIMEOUT, @report.id)
-      when "pass"
-        ReportWorker::Parser.perform(@report.id)
+      when "success"
+        ReportWorker::Parser.perform_async(@report.id)
       when "failure"
-        ReportWorker::Parser.perform(@report.id)
       end
     end
 end

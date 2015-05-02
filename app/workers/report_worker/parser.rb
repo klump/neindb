@@ -37,7 +37,8 @@ class ReportWorker::Parser
     @@parsers.each do |parser|
       if parser::TYPES.include?(report.data["reporter"]["type"])
         begin
-          parser.analyze(report)
+          p = parser.new(report)
+          p.analyze
         rescue ParseError
         end
       end
