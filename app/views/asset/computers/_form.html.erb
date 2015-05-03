@@ -1,6 +1,6 @@
-<%= form_for(@asset) do |f| %>
+<%= form_for(@asset, html: { class: ['form-horizontal'] }) do |f| %>
   <% if @asset.errors.any? %>
-    <div id="error_explanation">
+    <div class="alert alert-danger" id="error_explanation">
       <h2><%= pluralize(@asset.errors.count, "error") %> prohibited this asset from being saved:</h2>
 
       <ul>
@@ -12,18 +12,61 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    <%= f.label :name, class: ['col-sm-2', 'control-label'] %>
+    <div class="col-sm-4">
+      <%= f.text_field :name, class: ['form-control'] %>
+    </div>
   </div>
   <div class="field">
-    <%= f.label :type %><br>
-    <%= f.text_field :type %>
+    <%= f.label :product_name, class: ['col-sm-2', 'control-label'] %>
+    <div class="col-sm-4">
+      <%= f.text_field :product_name, class: ['form-control'] %>
+    </div>
   </div>
   <div class="field">
-    <%= f.label :properties %><br>
-    <%= f.text_field :properties %>
+    <%= f.label :location, class: ['col-sm-2', 'control-label'] %>
+    <div class="col-sm-4">
+      <%= f.text_field :location, class: ['form-control'] %>
+    </div>
   </div>
+  <div class="field">
+    <%= f.label :bios_version, class: ['col-sm-2', 'control-label'] %>
+    <div class="col-sm-4">
+      <%= f.text_field :bios_version, class: ['form-control'] %>
+    </div>
+  </div>
+  <div class="field">
+    <%= f.label :bios_vendor, class: ['col-sm-2', 'control-label'] %>
+    <div class="col-sm-4">
+      <%= f.text_field :bios_vendor, class: ['form-control'] %>
+    </div>
+  </div>
+  <div class="field">
+    <%= f.label :dimm_slots, class: ['col-sm-2', 'control-label'] %>
+    <div class="col-sm-4">
+      <%= f.text_field :dimm_slots, class: ['form-control'] %>
+    </div>
+  </div>
+  <div class="field">
+    <%= f.label :pci_slots, class: ['col-sm-2', 'control-label'] %>
+    <div class="col-sm-4">
+      <%= f.text_field :pci_slots, class: ['form-control'] %>
+    </div>
+  </div>
+  <div class="field">
+    <%= f.label :pcie_slots, class: ['col-sm-2', 'control-label'] %>
+    <div class="col-sm-4">
+      <%= f.text_field :pcie_slots, class: ['form-control'] %>
+    </div>
+  </div>
+
   <div class="actions">
-    <%= f.submit %>
-  </div>
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit class: ['btn', 'btn-primary'] %>
+      <% if @asset.new_record? %>
+        <%= link_to 'Cancel', asset_computers_path, class: ['btn', 'btn-default'], role: 'button' %>
+      <% else %>
+        <%= link_to 'Cancel', @asset, class: ['btn', 'btn-default'], role: 'button' %>
+      <% end %>
+    </div>
 <% end %>
