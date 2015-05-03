@@ -1,14 +1,14 @@
-<p id="notice"><%= notice %></p>
+<div class="page-header">
+  <h1>Revisions <small>Details for a revision</small></h1>
+</div>
 
 <p>
-  <strong>Old data:</strong>
-  <%= @revision.old_data %>
+  <strong>Changes:</strong>
+  <%= @revision.data %>
 </p>
 
-<p>
-  <strong>New data:</strong>
-  <%= @revision.new_data %>
-</p>
-
-<%= link_to 'Edit', edit_revision_path(@revision) %> |
-<%= link_to 'Back', revisions_path %>
+<nav>
+  <ul class="nav nav-pills">
+    <li><%= link_to 'Back', revisions_path %></li>
+  </ul>
+</nav>

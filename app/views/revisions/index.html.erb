@@ -1,29 +1,21 @@
-<p id="notice"><%= notice %></p>
+<div class="page-header">
+  <h1>Revisions <small>Overview</small></h1>
+</div>
 
-<h1>Listing Revisions</h1>
-
-<table>
+<table class="table table-condensed table-striped">
   <thead>
     <tr>
-      <th>Old data</th>
-      <th>New data</th>
-      <th colspan="3"></th>
+      <th>Asset</th>
+      <th>&nbsp;</th>
     </tr>
   </thead>
 
   <tbody>
     <% @revisions.each do |revision| %>
       <tr>
-        <td><%= revision.old_data %></td>
-        <td><%= revision.new_data %></td>
+        <td><%= revision.revisionable.name %></td>
         <td><%= link_to 'Show', revision %></td>
-        <td><%= link_to 'Edit', edit_revision_path(revision) %></td>
-        <td><%= link_to 'Destroy', revision, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Revision', new_revision_path %>

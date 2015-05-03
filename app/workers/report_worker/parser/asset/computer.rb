@@ -27,10 +27,10 @@ class ReportWorker::Parser::Asset::Computer < ReportWorker::Parser
     @computer.dimm_slots = @information[:dimm_slots]
     @computer.location = @information[:location]
 
+    @computer.save!
+
     # Compare the old and the new computer
     compare(@computer_old, @computer)
-
-    @computer.save
   end
 
   private
@@ -85,6 +85,6 @@ class ReportWorker::Parser::Asset::Computer < ReportWorker::Parser
       rev.revisionable = new
       rev.trigger = @report
 
-      rev.save
+      rev.save!
     end
 end
