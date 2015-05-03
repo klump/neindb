@@ -76,11 +76,8 @@ class ReportWorker::Parser::Asset::Computer < ReportWorker::Parser
 
     def compare(old, new)
       changes = ::Asset.changes_between(old, new)
-      logger.info changes
       # Exit if there are no changes
       return unless changes
-
-      logger.info "Changes detected!"
 
       # Create a revision
       revision = Revision.new
