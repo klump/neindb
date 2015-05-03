@@ -13,6 +13,17 @@ class Asset < ActiveRecord::Base
   validates :name, presence: true, uniqueness: {scope: [:type]}
   validates :type, presence: true
 
+  def Asset.changes_between(old, new)
+    diff = old.diff(new)
+
+    return if diff.empty?
+
+    # rename serialized_components to components in the key if it exists
+    diff[:components] = diff.delete(:serialized_components) if diff[:serialized_components]
+
+    diff
+  end
+
   def serialized_components
     components.map { |c| c.serializable_hash }
   end

@@ -15,7 +15,7 @@ class ReportWorker::Parser::Asset::Computer < ReportWorker::Parser
     parse_dmidecode
     parse_reporter
 
-    @computer = ::Asset::Computer.find_or_create_by(name: @information[:name])
+    @computer = ::Asset::Computer.find_or_initialize_by(name: @information[:name])
     # Duplicate the object for comparison
     @computer_old = @computer.dup
 
@@ -75,16 +75,19 @@ class ReportWorker::Parser::Asset::Computer < ReportWorker::Parser
     end
 
     def compare(old, new)
-      diff = old.diff(new)
+      changes = ::Asset.changes_between(old, new)
+      logger.info changes
+      # Exit if there are no changes
+      return unless changes
 
-      return if diff.empty?
+      logger.info "Changes detected!"
 
       # Create a revision
-      rev = Revision.new
-      rev.data = diff
-      rev.revisionable = new
-      rev.trigger = @report
+      revision = Revision.new
+      revision.data = changes
+      revision.revisionable = new
+      revision.trigger = @report
 
-      rev.save!
+      revision.save!
     end
 end

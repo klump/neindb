@@ -21,15 +21,8 @@ class ReportWorker::Parser
   def perform(report_id)
     report = Report.find(report_id)
 
-    # Check if the report is already being processed/ was processed
-    case report.parser_status
-    when "parsing"
-      raise ReportWorker::AlreadyInProgress
-    when "success"
-      raise ReportWorker::AlreadyDone
-    when "failure"
-      raise ReportWorker::AlreadyDone
-    end
+    # Check if the report is already being processed or was processed (it has a parser_status)
+    return if report.parser_status
 
     report.update!(parser_status: 'parsing')
 
@@ -38,10 +31,12 @@ class ReportWorker::Parser
 
     @@parsers.each do |parser|
       if parser::TYPES.include?(report.data["reporter"]["type"])
-        p = parser.new(report)
-        unless p.analyze
-          @report.update(parser_status: 'failure')
-          raise ParserError
+        begin
+          p = parser.new(report)
+          p.analyze
+        rescue => exception
+          report.update!(parser_status: 'failure')
+          raise exception
         end
       end
     end
