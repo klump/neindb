@@ -1,0 +1,45 @@
+<div class="page-header">
+  <h1>Computers <small>Details for a computer</small></h1>
+</div>
+
+<p> 
+  <strong>Serial:</strong>
+  <%= @asset.name %>
+</p>
+
+<p>
+  <strong>Product name:</strong>
+  <%= @asset.product_name %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @asset.location %>
+</p>
+
+<p>
+  <strong>BIOS:</strong>
+  <%= @asset.bios_version %> from <%= @asset.bios_vendor %>
+</p>
+
+<p>
+  <strong>DIMM slots:</strong>
+  <%= @asset.dimm_slots %>
+</p>
+
+<p>
+  <strong>PCI slots:</strong>
+  <%= @asset.pci_slots %>
+</p>
+
+<p>
+  <strong>PCIe slots:</strong>
+  <%= @asset.pcie_slots %>
+</p>
+
+<nav>
+  <ul class="nav nav-pills">
+    <li><%= link_to 'Edit', edit_asset_computer_path(@asset) %></li>
+    <li><%= link_to 'Back', asset_computers_path %></li>
+  </ul>
+</nav>

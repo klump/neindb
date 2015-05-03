@@ -1,0 +1,2 @@
+module Asset::ComputerHelper
+end

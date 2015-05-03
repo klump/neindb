@@ -37,8 +37,8 @@ class ReportWorker::Parser::Asset::Computer < ReportWorker::Parser
     def parse_dmidecode
       # System Information
       if @report.data["dmidecode"]["output"] =~ /^System Information$\s+Manufacturer: (.+?)$\s+Product Name: (.+?)$\s+Version: (.*?)$\s+Serial Number: (.+?)$/m
-        @information[:name] = $2
-        @information[:product_name] = $4
+        @information[:product_name] = $2
+        @information[:name] = $4
       else
         raise ReportWorker::Parser::InformationMissing
       end

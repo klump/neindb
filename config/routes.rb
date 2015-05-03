@@ -5,7 +5,10 @@ Rails.application.routes.draw do
   devise_for :users, path: 'auth'
 
   resources :users
-  resources :assets
+  namespace :asset do
+    resources :computers
+  end
+  resources :assets, only: [:index]
   resources :revisions, only: [:show, :index]
   resources :statuses, only: [:show, :index]
   resources :components
