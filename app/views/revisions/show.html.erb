@@ -2,13 +2,19 @@
   <h1>Revisions <small>Details for a revision</small></h1>
 </div>
 
-<p>
-  <strong>Changes:</strong>
-  <%= @revision.data %>
-</p>
-
 <nav>
   <ul class="nav nav-pills">
     <li><%= link_to 'Back', revisions_path %></li>
   </ul>
 </nav>
+
+<div class="row">
+  <div class="col-sm-6">
+    <h4>Old data</h4>
+    <%= print_old_data @revision.data %>
+  </div>
+  <div class="col-sm-6">
+    <h4>New data</h4>
+    <%= print_new_data @revision.data %>
+  </div>
+</div>
