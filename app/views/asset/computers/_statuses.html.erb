@@ -1,0 +1,16 @@
+<table class="table table-condensed table-striped">
+  <thead>
+    <tr>
+      <th>&nbsp;</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @asset.statuses.order("created_at DESC").each do |status| %>
+      <tr>
+        <td><%= visualize_status status.state %></td>
+        <td><%= link_to status.name, status %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

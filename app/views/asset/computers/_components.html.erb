@@ -1,0 +1,16 @@
+<table class="table table-condensed table-striped">
+  <thead>
+    <tr>
+      <th>Component</th>
+      <th>Connector</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @asset.attached_components.each do |attached_component| %>
+      <tr>
+        <td><%= link_to attached_component.component.name, attached_component.component %></td>
+        <td><%= component.connector %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

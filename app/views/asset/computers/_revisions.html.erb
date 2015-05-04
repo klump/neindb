@@ -1,0 +1,16 @@
+<table class="table table-condensed table-striped">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Trigger</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @asset.revisions.order("created_at DESC").each do |revision| %>
+      <tr>
+        <td><%= link_to revision.created_at, revision %></td>
+        <td><%= link_to revision.trigger_type, revision.trigger %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
