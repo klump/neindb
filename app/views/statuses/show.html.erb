@@ -10,5 +10,10 @@
   <%= @status.state %>
 </p>
 
-<%= link_to 'Edit', edit_status_path(@status) %> |
-<%= link_to 'Back', statuses_path %>
+<nav class="contextual">
+  <ul class="nav nav-pills">
+    <li><%= link_to 'Back', statuses_path %></li>
+    <li><%= link_to 'Edit', edit_status_path(@status) %></li>
+    <li><%= link_to 'Destroy', @asset, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+  </ul>
+</nav>

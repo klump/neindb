@@ -4,7 +4,7 @@
 
 <h2>Summary</h2>
 
-<table class="table">
+<table class="table table-condensed">
   <tr>
     <th scope="row">Status</th>
     <td><%= color_status @report.status %></td>
@@ -35,7 +35,11 @@
   </tr>
 </table>
 
-<p><%= link_to 'Back', reports_path %><p>
+<nav class="contextual">
+  <ul class="nav nav-pills">
+    <li><%= link_to 'Back', reports_path %></li>
+  </ul>
+</nav>
 
 <h2>Attached data</h2>
 

@@ -2,45 +2,44 @@
   <h1>Computers <small><%= @asset.name %></small></h1>
 </div>
 
-<p> 
-  <strong>Serial:</strong>
-  <%= @asset.name %>
-</p>
+<h2>Summary</h2>
 
-<p>
-  <strong>Product name:</strong>
-  <%= @asset.product_name %>
-</p>
+<table class="table table-condensed">
+  <tr> 
+    <th scope="row">Serial</th>
+    <td><%= @asset.name %></td>
+  </tr>
+  <tr>
+    <th scope="row">Product name</th>
+    <td><%= @asset.product_name %></td>
+  </tr>
+  <tr>
+    <th scope="row">Location</th>
+    <td><%= @asset.location %></td>
+  </tr>
+  <tr>
+    <th scope="row">BIOS</th>
+    <td><%= @asset.bios_version %> from <%= @asset.bios_vendor %></td>
+  </tr>
+  <tr>
+    <th scope="row">DIMM slots</th>
+    <td><%= @asset.dimm_slots %></td>
+  </tr>
+  <tr>
+    <th scope="row">PCI slots</th>
+    <td><%= @asset.pci_slots %></td>
+  </tr>
+  <tr>
+    <th scope="row">PCIe slots</th>
+    <td><%= @asset.pcie_slots %></td>
+  </tr>
+</table>
 
-<p>
-  <strong>Location:</strong>
-  <%= @asset.location %>
-</p>
-
-<p>
-  <strong>BIOS:</strong>
-  <%= @asset.bios_version %> from <%= @asset.bios_vendor %>
-</p>
-
-<p>
-  <strong>DIMM slots:</strong>
-  <%= @asset.dimm_slots %>
-</p>
-
-<p>
-  <strong>PCI slots:</strong>
-  <%= @asset.pci_slots %>
-</p>
-
-<p>
-  <strong>PCIe slots:</strong>
-  <%= @asset.pcie_slots %>
-</p>
-
-<nav>
+<nav class="contextual">
   <ul class="nav nav-pills">
-    <li><%= link_to 'Edit', edit_asset_computer_path(@asset) %></li>
     <li><%= link_to 'Back', asset_computers_path %></li>
+    <li><%= link_to 'Edit', edit_asset_computer_path(@asset) %></li>
+    <li><%= link_to 'Destroy', @asset, method: :delete, data: { confirm: 'Are you sure?' } %></li>
   </ul>
 </nav>
 

@@ -8,7 +8,7 @@
       <th>Serial</th>
       <th>Product name</th>
       <th>Location</th>
-      <th colspan="3"></th>
+      <th>&nbsp;</th>
     </tr>
   </thead>
 
@@ -18,17 +18,13 @@
         <td><%= asset.name %></td>
         <td><%= asset.product_name %></td>
         <td><%= asset.location %></td>
-        <td><%= link_to 'Show', asset %></td>
-        <td><%= link_to 'Edit', edit_asset_computer_path(asset) %></td>
-        <td><%= link_to 'Destroy', asset, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Details', asset %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
-
-<nav>
+<nav class="contextual">
   <ul class="nav nav-pills">
     <li><%= link_to 'New computer', new_asset_computer_path %></li>
   </ul>

@@ -34,7 +34,7 @@
   <code><%= @user.auth_token %></code>
 </p>
 
-<nav>
+<nav class="contextual">
   <ul class="nav nav-pills">
     <li><%= link_to 'Edit', edit_user_path(@user) %></li>
     <% if current_user.admin? %>

@@ -10,5 +10,9 @@
   <%= @component.attributes %>
 </p>
 
-<%= link_to 'Edit', edit_component_path(@component) %> |
-<%= link_to 'Back', components_path %>
+<nav class="contextual">
+  <ul class="nav nav-pills">
+    <li><%= link_to 'Back', components_path %></li>
+    <li><%= link_to 'Edit', edit_components_path(@component) %></li>
+  </ul>
+</nav>

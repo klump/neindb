@@ -16,10 +16,6 @@
 @import "bootstrap";
 @import "*";
 
-.flash {
-  padding: 0em 5em;
-}
-
 html, body {
   width: 100%;
   height: 100%;
@@ -34,4 +30,12 @@ footer {
   text-align: center;
   font-size: 65%;
   color: #777;
+}
+
+.flash {
+  padding: 0em 5em;
+}
+
+.contextual {
+  margin: 1em 0em;
 }
