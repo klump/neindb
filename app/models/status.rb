@@ -1,5 +1,5 @@
 class Status < ActiveRecord::Base
-  STATES = %w(good warning critical unknown)
+  STATES = %w(ok warning critical unknown)
 
   has_many :revisions, as: :revisionable
   belongs_to :asset

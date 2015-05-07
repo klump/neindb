@@ -1,4 +1,2 @@
-class Asset 
-  class Cage < Asset
-  end
+class Asset::Cage < Asset
 end

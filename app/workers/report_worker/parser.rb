@@ -41,7 +41,6 @@ class ReportWorker::Parser
       end
     end
 
-
     # everything went well
     report.update!(parser_status: 'success')
   end

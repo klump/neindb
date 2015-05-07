@@ -3,7 +3,7 @@ require 'active_record/diff'
 class Asset < ActiveRecord::Base
   include ActiveRecord::Diff
   
-  diff include: [:serialized_components]
+  diff include: [:serialized_components], exclude: [:created_at, :updated_at]
 
   has_many :statuses
   has_many :revisions, as: :revisionable
