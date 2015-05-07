@@ -14,6 +14,6 @@ module ApplicationHelper
       color = ''
     end
 
-    "<span class=\"status-circle bg-#{color}\"></span>".html_safe
+    "<span class=\"label label-#{color}\">#{state.capitalize}</span>".html_safe
   end
 end

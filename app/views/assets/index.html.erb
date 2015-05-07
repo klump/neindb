@@ -8,17 +8,15 @@
       <th>Serial</th>
       <th>Product name</th>
       <th>Type</th>
-      <th>&nbsp;</th>
     </tr>
   </thead>
 
   <tbody>
     <% @assets.each do |asset| %>
       <tr>
-        <td><%= asset.name %></td>
+        <td><%= link_to asset.name, asset %></td>
         <td><%= asset.product_name %></td>
         <td><%= asset.type %></td>
-        <td><%= link_to 'Details', asset %></td>
       </tr>
     <% end %>
   </tbody>

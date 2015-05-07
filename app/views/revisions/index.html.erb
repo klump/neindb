@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <th>Asset</th>
+      <th>Date</th>
       <th>&nbsp;</th>
     </tr>
   </thead>
@@ -13,7 +14,8 @@
   <tbody>
     <% @revisions.each do |revision| %>
       <tr>
-        <td><%= revision.revisionable.name %></td>
+        <td><%= link_to revision.revisionable.name, revision.revisionable %></td>
+        <td><%= revision.created_at %></td>
         <td><%= link_to 'Show', revision %></td>
       </tr>
     <% end %>
