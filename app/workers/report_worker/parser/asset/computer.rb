@@ -25,7 +25,7 @@ class ReportWorker::Parser::Asset::Computer < ReportWorker::Parser
     @computer.pci_slots = @information[:pci_slots]
     @computer.pcie_slots = @information[:pcie_slots]
     @computer.dimm_slots = @information[:dimm_slots]
-    @computer.location = @information[:location]
+    @computer.location = @information[:location] if @information[:location]
 
     @computer.save!
 
@@ -70,7 +70,7 @@ class ReportWorker::Parser::Asset::Computer < ReportWorker::Parser
       if @report.data["reporter"]["ipaddress"] =~ /^10\.(20[4-8])\.(\d{1,2})\.\d{1,3}$/
         @information[:location] = "D#{$1}-#{$2}"
       else
-        @information[:location] = 'Unknown'
+        @information[:location] = nil
       end
     end
 
