@@ -1,0 +1,52 @@
+<div class="page-header">
+  <h1>CPUs <small><%= @component.name %></small></h1>
+</div>
+
+<h2>Summary</h2>
+
+<table class="table table-condensed">
+  <tr> 
+    <th scope="row">Name</th>
+    <td><%= @component.name %></td>
+  </tr>
+  <tr> 
+    <th scope="row">Vendor</th>
+    <td><%= @component.vendor %></td>
+  </tr>
+  <tr> 
+    <th scope="row">Speed</th>
+    <td><%= @component.speed_mhz %> MHz</td>
+  </tr>
+  <tr> 
+    <th scope="row">Cores</th>
+    <td><%= @component.cores %></td>
+  </tr>
+  <tr> 
+    <th scope="row">Threads</th>
+    <td><%= @component.cores * @component.threads_per_core %></td>
+  </tr>
+  <tr> 
+    <th scope="row">extensions</th>
+    <td><%= display_cpu_extensions @component.extensions %></td>
+  </tr>
+</table>
+
+<nav class="contextual">
+  <ul class="nav nav-pills">
+    <li><%= link_to 'Back', component_cpus_path %></li>
+    <li><%= link_to 'Delete', @component, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+  </ul>
+</nav>
+
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">Computers</h4>
+      </div>
+      <div class="panel-body">
+        <%= render 'computers' %>
+      </div>
+    </div>
+  </div>
+</div>

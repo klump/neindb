@@ -9,9 +9,12 @@ Rails.application.routes.draw do
     resources :computers
   end
   resources :assets, only: [:index]
+  namespace :component do
+    resources :cpus, only: [:index, :show, :destroy]
+  end
+  resources :components, only: [:index]
   resources :revisions, only: [:show, :index]
   resources :statuses, only: [:show, :index]
-  resources :components
   resources :reports, only: [:show, :index]
 
   # the sidekiq webinterface only for admins

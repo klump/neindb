@@ -9,7 +9,7 @@
     <% @asset.attached_components.each do |attached_component| %>
       <tr>
         <td><%= link_to attached_component.component.name, attached_component.component %></td>
-        <td><%= component.connector %></td>
+        <td><%= attached_component.connector %></td>
       </tr>
     <% end %>
   </tbody>

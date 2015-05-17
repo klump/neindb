@@ -3,6 +3,7 @@
     <tr>
       <th>&nbsp;</th>
       <th>Name</th>
+      <th>Date</th>
     </tr>
   </thead>
   <tbody>
@@ -10,6 +11,7 @@
       <tr>
         <td><%= visualize_status status.state %></td>
         <td><%= link_to status.name, status %></td>
+        <td><%= status.created_at %></td>
       </tr>
     <% end %>
   </tbody>

@@ -1,5 +1,5 @@
 <div class="page-header">
-  <h1>Components <small>Overview</small></h1>
+  <h1>CPUs <small>Overview</small></h1>
 </div>
 
 <table class="table table-condensed table-striped">
@@ -7,7 +7,7 @@
     <tr>
       <th>Name</th>
       <th>Vendor</th>
-      <th>Type</th>
+      <th>Speed</th>
     </tr>
   </thead>
 
@@ -16,7 +16,7 @@
       <tr>
         <td><%= link_to component.name, component %></td>
         <td><%= component.vendor %></td>
-        <td><%= component.type %></td>
+        <td><%= component.speed_mhz %> MHz</td>
       </tr>
     <% end %>
   </tbody>
