@@ -3,14 +3,14 @@ class ReportWorker::Parser
 
   class ParserError < StandardError; end
   class InformationMissing < StandardError; end
+  class TypeMissing < StandardError; end
 
   #
   # Allows the registering of parsers for certain asset types
   #
-  @@parsers = []
-  def self.add(parser)
-    @@parsers << parser
-    @@parsers.uniq!
+  @@parsers = {}
+  def self.add(parser,prio)
+    @@parsers[parser] = prio
   end
 
   #
@@ -29,19 +29,35 @@ class ReportWorker::Parser
     # Start a timeout worker for the parser
     ReportWorker::Parser::TimeoutChecker.perform_in(ReportWorker::Parser::TimeoutChecker::PARSING_TIMEOUT, report.id)
 
-    @@parsers.each do |parser|
-      if parser::TYPES.include?(report.data["reporter"]["type"])
-        begin
-          p = parser.new(report)
-          p.analyze
-        rescue => exception
-          report.update!(parser_status: 'failure')
-          raise exception
-        end
+    parsers_for(report.data["reporter"]["type"]).each do |parser|
+      begin
+        p = parser.new(report)
+        p.analyze
+      rescue => exception
+        report.update!(parser_status: 'failure')
+        raise exception
       end
     end
 
-    # everything went well
+    # Everything went well
     report.update!(parser_status: 'success')
   end
+
+  private
+    #
+    # Return an array for the parsers of the right asset type sorted by their priority
+    #
+    def parsers_for type
+      raise TypeMissing unless type
+
+      parsers = @@parsers.select do |parser,prio|
+        parser::TYPES.include?(type) 
+      end
+
+      parsers = parsers.sort_by do |parser,prio|
+        prio
+      end
+
+      parsers.to_h.keys
+    end
 end

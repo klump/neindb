@@ -12,7 +12,6 @@ class ReportWorker::Parser::Component::Cpu < ReportWorker::Parser
 
   def analyze
     # extract the necessary information to identify the computer
-    @asset = identify_asset
     parse_cpuinfo
     parse_cpufreq
 
@@ -27,21 +26,12 @@ class ReportWorker::Parser::Component::Cpu < ReportWorker::Parser
     @cpu.save!
 
     # update association between component and asset (cpu and computer)
-    attachment = @cpu.attached_components.find_or_initialize_by(asset: @asset)
+    attachment = @cpu.attached_components.find_or_initialize_by(asset: @report.asset)
     attachment.connector = "Socket #{@information[:socket]}"
     attachment.save
   end
 
   private
-    def identify_asset
-      # System Information
-      if @report.data["dmidecode"]["output"] =~ /^System Information$\s+Manufacturer: (.+?)$\s+Product Name: (.+?)$\s+Version: (.*?)$\s+Serial Number: (.+?)$/m
-        ::Asset::Computer.find_by!(name: $4)
-      else
-        raise ReportWorker::Parser::InformationMissing
-      end
-    end
-
     def parse_cpuinfo
       # CPU Information
       if @report.data["cpuinfo"]["output"] =~ /^vendor_id\s+:\s+(.+?)$.+?^model\s+name\s+:\s+(.+?)$.+?^physical\s+id\s+:\s+(\d+?)$.+?^siblings\s+:\s+(\d+?)$.+?^cpu\s+cores\s+:\s+(\d+?)$.+?^flags\s+:\s+(.+?)$/m

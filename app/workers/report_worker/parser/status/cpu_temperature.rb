@@ -16,14 +16,12 @@ class ReportWorker::Parser::Status::CpuTemperature < ReportWorker::Parser
 
   def analyze
     # extract the necessary information to identify the computer
-    @asset = identify_asset
     parse_cputemperature
 
-    @status = ::Status.new
-    @status.name = 'cputemp'
+    @status = ::Status.find_or_initialize_by(asset: @asset, name: 'cputemp')
     @status.state = 'unknown'
     @status.message = "CPU temperature: #{@information[:temp]}°C"
-    @status.asset = @asset
+    @status.asset = @report.asset
 
     temp = @information[:temp].to_i
 
@@ -39,15 +37,6 @@ class ReportWorker::Parser::Status::CpuTemperature < ReportWorker::Parser
   end
 
   private
-    def identify_asset
-      # System Information
-      if @report.data["dmidecode"]["output"] =~ /^System Information$\s+Manufacturer: (.+?)$\s+Product Name: (.+?)$\s+Version: (.*?)$\s+Serial Number: (.+?)$/m
-        ::Asset::Computer.find_by!(name: $4)
-      else
-        raise ReportWorker::Parser::InformationMissing
-      end
-    end
-
     def parse_cputemperature
       # CPU temperature
       if @report.data["sensors"]["output"] =~ /^coretemp.+?$\s+.+?:$\s+temp\d+_input:\s+([0-9.]+)$/

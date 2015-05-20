@@ -15,7 +15,10 @@ class ReportWorker::Parser::Asset::Computer < ReportWorker::Parser
     parse_dmidecode
     parse_reporter
 
-    @computer = ::Asset::Computer.find_or_initialize_by(name: @information[:name])
+    # Check if the report has an asset, if not create one
+    @report.asset ||= ::Asset::Computer.find_or_initialize_by(name: @information[:name])
+    @computer = @report.asset
+
     # Duplicate the object for comparison
     @computer_old = @computer.dup
 
@@ -28,6 +31,9 @@ class ReportWorker::Parser::Asset::Computer < ReportWorker::Parser
     @computer.location = @information[:location] if @information[:location]
 
     @computer.save!
+
+    # Save the report (if the association changed)
+    @report.save!
 
     # Compare the old and the new computer
     compare(@computer_old, @computer)

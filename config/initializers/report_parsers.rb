@@ -1,8 +1,8 @@
-# Assets
-ReportWorker::Parser.add(ReportWorker::Parser::Asset::Computer)
+# Assets (should have the loweest priority)
+ReportWorker::Parser.add(ReportWorker::Parser::Asset::Computer, 10)
 
-# Components
-ReportWorker::Parser.add(ReportWorker::Parser::Status::CpuTemperature)
+# Components (should have a middle priority as they require assets)
+ReportWorker::Parser.add(ReportWorker::Parser::Status::CpuTemperature, 20)
 
-# Statuses
-ReportWorker::Parser.add(ReportWorker::Parser::Component::Cpu)
+# Statuse (should have the highest priority as they require assets and components)
+ReportWorker::Parser.add(ReportWorker::Parser::Component::Cpu, 50)
