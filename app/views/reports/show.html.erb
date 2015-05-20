@@ -2,38 +2,37 @@
 <h1>Reports <small>Details for a report</small></h1>
 </div>
 
-<h2>Summary</h2>
+<div class="panel panel-default show-summary">
+  <div class="panel-heading">
+    <h2 class="panel-title">Summary</h2>
+  </div>
+  <div class="panel-body">
+    <dl>
+      <dt>Status</dt>
+      <dd><%= color_status @report.status %></dd>
 
-<table class="table table-condensed">
-  <tr>
-    <th scope="row">Status</th>
-    <td><%= color_status @report.status %></td>
-  </tr>
-  <tr>
-    <th scope="row">Parser</th>
-    <td><%= color_parser_status @report.parser_status %></td>
-  </tr>
-  <tr>
-    <th scope="row">Started</th>
-    <td><%= l @report.starttime%></td>
-  </tr>
-  <tr>
-    <th scope="row">Finished</th>
-    <% if @report.endtime %>
-      <td><%= l @report.endtime %></td>
-    <% else %>
-      <td>&nbsp;</td>
-    <% end %>
-  </tr>
-  <tr>
-    <th scope="row">Submitted by</td>
-    <% if current_user.admin? %>
-      <td><%= link_to @report.user.name, @report.user %></td>
-    <% else %>
-      <td><%= @report.user.name %></td>
-    <% end %>
-  </tr>
-</table>
+      <dt>Parser</dt>
+      <dd><%= color_parser_status @report.parser_status %></dd>
+      
+      <dt>Started</dt>
+      <dd><%= l @report.starttime%></dd>
+      
+      <dt>Finished</dt>
+      <% if @report.endtime %>
+        <dd><%= l @report.endtime %></dd>
+      <% else %>
+        <dd>&nbsp;</dd>
+      <% end %>
+      
+      <dt>Submitted by</dd>
+      <% if current_user.admin? %>
+        <dd><%= link_to @report.user.name, @report.user %></dd>
+      <% else %>
+        <dd><%= @report.user.name %></dd>
+      <% end %>
+    </dl>
+  </div>
+</div>
 
 <nav class="contextual">
   <ul class="nav nav-pills">

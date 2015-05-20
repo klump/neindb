@@ -2,34 +2,32 @@
   <h1>CPUs <small><%= @component.name %></small></h1>
 </div>
 
-<h2>Summary</h2>
+<div class="panel panel-default show-summary">
+  <div class="panel-heading">
+    <h2 class="panel-title">Summary</h2>
+  </div>
+  <div class="panel-body">
+    <dl>
+      <dt>Name</dt>
+      <dd><%= @component.name %></dd>
 
-<table class="table table-condensed">
-  <tr> 
-    <th scope="row">Name</th>
-    <td><%= @component.name %></td>
-  </tr>
-  <tr> 
-    <th scope="row">Vendor</th>
-    <td><%= @component.vendor %></td>
-  </tr>
-  <tr> 
-    <th scope="row">Speed</th>
-    <td><%= @component.speed_mhz %> MHz</td>
-  </tr>
-  <tr> 
-    <th scope="row">Cores</th>
-    <td><%= @component.cores %></td>
-  </tr>
-  <tr> 
-    <th scope="row">Threads</th>
-    <td><%= @component.cores * @component.threads_per_core %></td>
-  </tr>
-  <tr> 
-    <th scope="row">extensions</th>
-    <td><%= display_cpu_extensions @component.extensions %></td>
-  </tr>
-</table>
+      <dt>Vendor</dt>
+      <dd><%= @component.vendor %></dd>
+      
+      <dt>Speed</dt>
+      <dd><%= @component.speed_mhz %> MHz</dd>
+
+      <dt>Cores</dt>
+      <dd><%= @component.cores %></dd>
+      
+      <dt>Threads</dt>
+      <dd><%= @component.cores * @component.threads_per_core %></dd>
+      
+      <dt>Extensions</dt>
+      <dd><%= display_cpu_extensions @component.extensions %></dd>
+    </dl>
+  </div>
+</div>
 
 <nav class="contextual">
   <ul class="nav nav-pills">

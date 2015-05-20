@@ -2,38 +2,35 @@
   <h1>Computers <small><%= @asset.name %></small></h1>
 </div>
 
-<h2>Summary</h2>
+<div class="panel panel-default show-summary">
+  <div class="panel-heading">
+    <h2 class="panel-title">Summary</h2>
+  </div>
+  <div class="panel-body">
+    <dl>
+      <dt>Serial</dt>
+      <dd><%= @asset.name %></dd>
 
-<table class="table table-condensed">
-  <tr> 
-    <th scope="row">Serial</th>
-    <td><%= @asset.name %></td>
-  </tr>
-  <tr>
-    <th scope="row">Product name</th>
-    <td><%= @asset.product_name %></td>
-  </tr>
-  <tr>
-    <th scope="row">Location</th>
-    <td><%= @asset.location %></td>
-  </tr>
-  <tr>
-    <th scope="row">BIOS</th>
-    <td><%= @asset.bios_version %> from <%= @asset.bios_vendor %></td>
-  </tr>
-  <tr>
-    <th scope="row">DIMM slots</th>
-    <td><%= @asset.dimm_slots %></td>
-  </tr>
-  <tr>
-    <th scope="row">PCI slots</th>
-    <td><%= @asset.pci_slots %></td>
-  </tr>
-  <tr>
-    <th scope="row">PCIe slots</th>
-    <td><%= @asset.pcie_slots %></td>
-  </tr>
-</table>
+      <dt>Product name</dt>
+      <dd><%= @asset.product_name %></dd>
+      
+      <dt>Location</dt>
+      <dd><%= @asset.location %></dd>
+      
+      <dt>BIOS</dt>
+      <dd><%= @asset.bios_version %> from <%= @asset.bios_vendor %></dd>
+      
+      <dt>DIMM slots</dt>
+      <dd><%= @asset.dimm_slots %></dd>
+      
+      <dt>PCI slots</dt>
+      <dd><%= @asset.pci_slots %></dd>
+      
+      <dt>PCIe slots</dt>
+      <dd><%= @asset.pcie_slots %></dd>
+    </dl>
+  </div>
+</div>
 
 <nav class="contextual">
   <ul class="nav nav-pills">

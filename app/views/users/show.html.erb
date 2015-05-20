@@ -2,37 +2,34 @@
   <h1>Users <small><%= @user.name %></small></h1>
 </div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
+<div class="panel panel-default show-summary">
+  <div class="panel-heading">
+    <h2 class="panel-title">Summary</h2>
+  </div>
+  <div class="panel-body">
+    <dl>
+      <dt>Name</dt>
+      <dd><%= @user.name %></dd>
 
-<p>
-  <strong>Username:</strong>
-  <%= @user.username %>
-</p>
+      <dt>Username</dt>
+      <dd><%= @user.username %></dd>
 
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
+      <dt>Email</dt>
+      <dd><%= @user.email %></dd>
 
-<p>
-  <strong>Role:</strong>
-  <%= @user.role %>
-</p>
+      <dt>Role</dt>
+      <dd><%= @user.role %></dd>
 
-<% if @user.last_sign_in_at && @user.last_sign_in_ip %>
-  <p>
-    <strong>Last sign-in:</strong>
-    <%= l @user.last_sign_in_at %> from <%= @user.last_sign_in_ip %>
-  </p>
-<% end %>
+      <% if @user.last_sign_in_at && @user.last_sign_in_ip %>
+        <dt>Last sign-in</dt>
+        <dd><%= l @user.last_sign_in_at %> from <%= @user.last_sign_in_ip %></dd>
+      <% end %>
 
-<p>
-  <strong>API token:</strong>
-  <code><%= @user.auth_token %></code>
-</p>
+      <dt>API token</dt>
+      <dd><code><%= @user.auth_token %></code></dd>
+    </dl>
+  </div>
+</div>
 
 <nav class="contextual">
   <ul class="nav nav-pills">

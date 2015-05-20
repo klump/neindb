@@ -39,3 +39,21 @@ footer {
 .contextual {
   margin: 1em 0em;
 }
+
+div.show-summary {
+  h2 {
+    font-size: 150%;
+  }
+  dl {
+    & dt {
+      display: inline-block;
+      padding: 5px 15px;
+      @extend .col-sm-3;
+    }
+    & dd {
+      display: inline-block;
+      padding: 5px 15px;
+      @extend .col-sm-9;
+    }
+  }
+}

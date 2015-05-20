@@ -2,26 +2,26 @@
   <h1>Statuses <small>Overview</small></h1>
 </div>
 
-<h2>Summary</h2>
-
-<table class="table table-condensed">
-  <tr>
-    <th scope="row">Status</th>
-    <td><%= visualize_status @status.state %></td>
-  </tr>
-  <tr>
-    <th scope="row">Name</th>
-    <td><%= @status.name %></td>
-  </tr>
-  <tr>
-    <th scope="row">Asset</th>
-    <td><%= link_to @status.asset.name, @status.asset %></td>
-  </tr>
-  <tr>
-    <th scope="row">Date</th>
-    <td><%= l @status.created_at %></td>
-  </tr>
-</table>
+<div class="panel panel-default show-summary">
+  <div class="panel-heading">
+    <h2 class="panel-title">Summary</h2>
+  </div>
+  <div class="panel-body">
+    <dl>
+      <dt>Status</dt>
+      <dd><%= visualize_status @status.state %></dd>
+      
+      <dt>Name</dt>
+      <dd><%= @status.name %></dd>
+      
+      <dt>Asset</dt>
+      <dd><%= link_to @status.asset.name, @status.asset %></dd>
+      
+      <dt>Date</dt>
+      <dd><%= l @status.created_at %></dd>
+    </dl>
+  </div>
+</div>
 
 <nav class="contextual">
   <ul class="nav nav-pills">
