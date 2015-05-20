@@ -5,6 +5,8 @@
 class ReportWorker::Parser::Status::CpuTemperature < ReportWorker::Parser
   TYPES = %w(computer)
 
+  REQUIRE = [:sensors]
+
   THRESHOLDS = {
      warning: 80,
      critical: 90,

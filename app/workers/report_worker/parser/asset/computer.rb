@@ -5,6 +5,8 @@
 class ReportWorker::Parser::Asset::Computer < ReportWorker::Parser
   TYPES = %w(computer)
 
+  REQUIRE = [:dmidecode, :reporter]
+
   def initialize(report)
     @report = report
     @information = {}

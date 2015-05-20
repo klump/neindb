@@ -5,6 +5,8 @@ class ReportWorker::Parser
   class InformationMissing < StandardError; end
   class TypeMissing < StandardError; end
 
+  REQUIRE = []
+
   #
   # Allows the registering of parsers for certain asset types
   #
@@ -31,6 +33,9 @@ class ReportWorker::Parser
 
     parsers_for(report.data["reporter"]["type"]).each do |parser|
       begin
+        parser::REQUIRE.each do |reqirement|
+          raise InformationMissing unless report.data[requirement]
+        end
         p = parser.new(report)
         p.analyze
       rescue => exception

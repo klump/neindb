@@ -5,6 +5,8 @@
 class ReportWorker::Parser::Component::Cpu < ReportWorker::Parser
   TYPES = %w(computer)
 
+  REQUIRE = [:cpuinfo, :cpufreq]
+
   def initialize(report)
     @report = report
     @information = {}
