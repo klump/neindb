@@ -48,7 +48,7 @@ class ReportWorker::Parser::Asset::Computer < ReportWorker::Parser
         @information[:product_name] = $2
         @information[:name] = $4
       else
-        raise ReportWorker::Parser::InformationMissing
+        raise ReportWorker::Parser::InformationMissing, "The regular expression for the product name and name did not yield any matches"
       end
 
       # BIOS Information
@@ -56,7 +56,7 @@ class ReportWorker::Parser::Asset::Computer < ReportWorker::Parser
         @information[:bios_vendor] = $1
         @information[:bios_version] = $2
       else
-        raise ReportWorker::Parser::InformationMissing
+        raise ReportWorker::Parser::InformationMissing, "The regular expression for the BIOS vendor and BIOS version did no yield any matches"
       end
 
       # PCI information
@@ -69,7 +69,7 @@ class ReportWorker::Parser::Asset::Computer < ReportWorker::Parser
       if @report.data["dmidecode"]["output"] =~ /^Physical Memory Array$\s+Location: System Board Or Motherboard$\s+Use: System Memory$\s+Error Correction Type: (.+?)$\s+Maximum Capacity: (.+?)$\s+Error Information Handle: (.+?)$\s+Number Of Devices: (\d+)$/m
         @information[:dimm_slots] = $4
       else
-        raise ReportWorker::Parser::InformationMissing
+        raise ReportWorker::Parser::InformationMissing, "The regular expression for the DIMM slots did not yield any matches"
       end
     end
 
@@ -90,7 +90,7 @@ class ReportWorker::Parser::Asset::Computer < ReportWorker::Parser
       # Create a revision
       revision = Revision.new
       revision.data = changes
-      revision.revisionable = new
+      revision.revisionable = @report.asset
       revision.trigger = @report
 
       revision.save!

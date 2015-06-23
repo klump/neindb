@@ -33,8 +33,8 @@ class ReportWorker::Parser
 
     parsers_for(report.data["reporter"]["type"]).each do |parser|
       begin
-        parser::REQUIRE.each do |reqirement|
-          raise InformationMissing unless report.data[requirement]
+        parser::REQUIRE.each do |requirement|
+          raise InformationMissing, "The #{parser} parser requires information from the #{requirement} collector." unless report.data[requirement.to_s]
         end
         p = parser.new(report)
         p.analyze
@@ -53,7 +53,7 @@ class ReportWorker::Parser
     # Return an array for the parsers of the right asset type sorted by their priority
     #
     def parsers_for type
-      raise TypeMissing unless type
+      raise TypeMissing, "You need to specify a type" unless type
 
       parsers = @@parsers.select do |parser,prio|
         parser::TYPES.include?(type) 
