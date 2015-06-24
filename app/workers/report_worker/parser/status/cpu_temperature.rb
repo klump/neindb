@@ -21,6 +21,10 @@ class ReportWorker::Parser::Status::CpuTemperature < ReportWorker::Parser
     parse_cputemperature
 
     @status = ::Status.find_or_initialize_by(asset: @asset, name: 'cputemp')
+
+    # Duplicate the object for comparison
+    @status_old = @status.dup
+
     @status.state = 'unknown'
     @status.message = "CPU temperature: #{@information[:temp]}°C"
     @status.asset = @report.asset
@@ -36,6 +40,9 @@ class ReportWorker::Parser::Status::CpuTemperature < ReportWorker::Parser
     end
 
     @status.save!
+
+    # Compare the old and the new status
+    compare(@status_old, @status)
   end
 
   private
@@ -44,7 +51,21 @@ class ReportWorker::Parser::Status::CpuTemperature < ReportWorker::Parser
       if @report.data["sensors"]["output"] =~ /^coretemp.+?$\s+.+?:$\s+temp\d+_input:\s+([0-9.]+)$/
         @information[:temp] = $1
       else
-        raise ReportWorker::Parser::InformationMissing
+        raise ReportWorker::Parser::InformationMissing, "The regular expression for the CPU temperature did not yield any matches"
       end
+    end
+
+    def compare(old, new)
+      changes = ::Status.changes_between(old, new)
+      # Exit if there are no changes
+      return unless changes
+
+      # Create a revision
+      revision = Revision.new
+      revision.data = changes
+      revision.revisionable = @status
+      revision.trigger = @report
+
+      revision.save!
     end
 end

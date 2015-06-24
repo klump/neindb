@@ -9,4 +9,4 @@ inheritance: true
 polymorphism: true
 orientation: vertical
 warn: false
-title: "NEIN!DB - domain model"
+title: "NeinDB - domain model"

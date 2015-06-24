@@ -16,7 +16,7 @@
     <% @revisions.each do |revision| %>
       <tr>
         <td><%= link_to revision.revisionable.name, revision.revisionable %></td>
-        <td><%= revision.revisionable.type %></td>
+        <td><%= revision.revisionable.class %></td>
         <td><%= revision.created_at %></td>
         <td><%= link_to 'Show', revision %></td>
       </tr>

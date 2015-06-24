@@ -44,7 +44,7 @@ class ReportWorker::Parser::Component::Cpu < ReportWorker::Parser
         @information[:threads_per_core] = $4.to_i / @information[:cores].to_i
         @information[:extensions] = $6
       else
-        raise ReportWorker::Parser::InformationMissing
+        raise ReportWorker::Parser::InformationMissing, "The regular expression for the CPU information did not yield any matches"
       end
     end
 
@@ -53,7 +53,7 @@ class ReportWorker::Parser::Component::Cpu < ReportWorker::Parser
       if @report.data["cpufreq"]["output"] =~ /^CPU\s+\d+\s+((\d+)\s+\wHz)\s+\(\s+\d+\s+%\)\s+-\s+((\d+)\s+\wHz)/m
         @information[:speed_mhz] = $4.to_i / 1000
       else
-        raise ReportWorker::Parser::InformationMissing
+        raise ReportWorker::Parser::InformationMissing, "The regular expression for the CPU speed did not yield any matches"
       end
     end
 end
