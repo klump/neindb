@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20150430150036) do
   create_table "assets", force: :cascade do |t|
     t.string   "name"
     t.string   "type"
-    t.json     "properties"
+    t.jsonb    "properties", null: false, default: '{}'
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 20150430150036) do
   create_table "components", force: :cascade do |t|
     t.string   "name"
     t.string   "vendor"
-    t.json     "properties"
+    t.jsonb    "properties", null: false, default: '{}'
     t.string   "type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 20150430150036) do
     t.string   "status"
     t.datetime "starttime"
     t.datetime "endtime"
-    t.json     "data"
+    t.jsonb    "data",          null: false, default: '{}'
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.integer  "asset_id"
@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(version: 20150430150036) do
   end
 
   create_table "revisions", force: :cascade do |t|
-    t.json     "data"
+    t.jsonb    "data",              null: false, default: '{}'
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.integer  "revisionable_id",   null: false
