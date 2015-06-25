@@ -15,7 +15,7 @@ module ReportsHelper
   end
 
   def color_parser_status status
-    return if status.blank?
+    return '&nbsp'.html_safe if status.blank?
 
     type = nil
 

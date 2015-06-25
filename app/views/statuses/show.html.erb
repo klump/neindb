@@ -12,10 +12,10 @@
       <dd><%= @status.name %></dd>
       
       <dt>Status</dt>
-      <dd><%= visualize_status @status.state %></dd>
+      <dd><%= @status.state %></dd>
       
       <dt>Message</dt>
-      <dd><%= @status.message %></dd>
+      <dd><%= fill_if_empty @status.message %></dd>
       
       <dt>Asset</dt>
       <dd><%= link_to @status.asset.name, @status.asset %></dd>

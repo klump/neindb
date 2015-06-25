@@ -15,19 +15,19 @@
       <dd><%= @asset.product_name %></dd>
       
       <dt>Location</dt>
-      <dd><%= @asset.location %></dd>
+      <dd><%= fill_if_empty @asset.location %></dd>
       
       <dt>BIOS</dt>
       <dd><%= @asset.bios_version %> from <%= @asset.bios_vendor %></dd>
       
       <dt>DIMM slots</dt>
-      <dd><%= @asset.dimm_slots %></dd>
+      <dd><%= fill_if_empty @asset.dimm_slots %></dd>
       
       <dt>PCI slots</dt>
-      <dd><%= @asset.pci_slots %></dd>
+      <dd><%= fill_if_empty @asset.pci_slots %></dd>
       
       <dt>PCIe slots</dt>
-      <dd><%= @asset.pcie_slots %></dd>
+      <dd><%= fill_if_empty @asset.pcie_slots %></dd>
     </dl>
   </div>
 </div>
