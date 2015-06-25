@@ -1,0 +1,23 @@
+<div class="page-header">
+  <h1>NICs <small>Overview</small></h1>
+</div>
+
+<table class="table table-condensed table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Vendor</th>
+      <th>Speed</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @components.each do |component| %>
+      <tr>
+        <td><%= link_to component.name, component %></td>
+        <td><%= component.vendor %></td>
+        <td><%= component.speed_mbits %> Mbit/s</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

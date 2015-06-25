@@ -1,5 +1,5 @@
 class Component::Nic < Component
-  store_accessor :properties, :speed_mbits, :ports, :mac_addresses
+  store_accessor :properties, :speed_mbits, :ports, :mac_addresses, :capabilities
 
   validates :speed_mbits, presence: true, numericality: true
   validates :ports, presence: true, numericality: {only_integer: true}
@@ -38,5 +38,6 @@ class Component::Nic < Component
 
     def ensure_default_values
       write_store_attribute(:properties, :mac_addresses, []) unless mac_addresses
+      write_store_attribute(:properties, :capabilities, []) unless capabilities
     end  
 end

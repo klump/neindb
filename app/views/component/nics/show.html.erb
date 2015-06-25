@@ -1,5 +1,5 @@
 <div class="page-header">
-  <h1>CPUs <small><%= @component.name %></small></h1>
+  <h1>NICs <small><%= @component.name %></small></h1>
 </div>
 
 <div class="panel panel-default show-summary">
@@ -15,23 +15,23 @@
       <dd><%= @component.vendor %></dd>
       
       <dt>Speed</dt>
-      <dd><%= @component.speed_mhz %> MHz</dd>
-
-      <dt>Cores</dt>
-      <dd><%= @component.cores %></dd>
+      <dd><%= fill_if_empty @component.speed_mbits %> Mbit/s</dd>
       
-      <dt>Threads</dt>
-      <dd><%= @component.cores * @component.threads_per_core %></dd>
+      <dt>Ports</dt>
+      <dd><%= fill_if_empty @component.ports %></dd>
+
+      <dt>MAC addresses</dt>
+      <dd><%= display_mac_addresses @component.mac_addresses %></dd>
       
       <dt>Extensions</dt>
-      <dd><%= display_capabilities @component.extensions %></dd>
+      <dd><%= display_capabilities @component.capabilities %></dd>
     </dl>
   </div>
 </div>
 
 <nav class="contextual">
   <ul class="nav nav-pills">
-    <li><%= link_to 'Back', component_cpus_path %></li>
+    <li><%= link_to 'Back', component_nics_path %></li>
     <li><%= link_to 'Delete', @component, method: :delete, data: { confirm: 'Are you sure?' } %></li>
   </ul>
 </nav>

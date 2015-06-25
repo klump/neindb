@@ -42,7 +42,7 @@ class ReportWorker::Parser::Component::Cpu < ReportWorker::Parser
         @information[:socket] = $3
         @information[:cores] = $5
         @information[:threads_per_core] = $4.to_i / @information[:cores].to_i
-        @information[:extensions] = $6
+        @information[:extensions] = $6.split(/\s+/)
       else
         raise ReportWorker::Parser::InformationMissing, "The regular expression for the CPU information did not yield any matches"
       end
