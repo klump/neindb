@@ -13,6 +13,9 @@
 
       <dt>Parser</dt>
       <dd><%= color_parser_status @report.parser_status %></dd>
+
+      <dt>Asset</dt>
+      <dd><%= link_to @report.asset.name, @report.asset %></dd>
       
       <dt>Started</dt>
       <dd><%= l @report.starttime%></dd>

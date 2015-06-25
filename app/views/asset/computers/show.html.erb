@@ -35,6 +35,7 @@
 <nav class="contextual">
   <ul class="nav nav-pills">
     <li><%= link_to 'Back', asset_computers_path %></li>
+    <li><%= link_to 'Lastest report', @asset.reports.last %></li>
     <li><%= link_to 'Edit', edit_asset_computer_path(@asset) %></li>
     <li><%= link_to 'Destroy', @asset, method: :delete, data: { confirm: 'Are you sure?' } %></li>
   </ul>
