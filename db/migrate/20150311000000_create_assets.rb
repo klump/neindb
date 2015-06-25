@@ -3,7 +3,7 @@ class CreateAssets < ActiveRecord::Migration
     create_table :assets do |t|
       t.string :name
       t.string :type
-      t.json :properties
+      t.jsonb :properties, null: false, default: '{}'
 
       t.timestamps null: false
     end

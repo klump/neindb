@@ -4,7 +4,7 @@ class CreateComponents < ActiveRecord::Migration
     create_table :components do |t|
       t.string :name
       t.string :vendor
-      t.json :properties
+      t.jsonb :properties, null: false, default: '{}'
 
       t.string :type
 

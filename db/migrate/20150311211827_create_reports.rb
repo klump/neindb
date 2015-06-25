@@ -4,7 +4,7 @@ class CreateReports < ActiveRecord::Migration
       t.string :status
       t.datetime :starttime
       t.datetime :endtime
-      t.json :data
+      t.jsonb :data, null: false, default: '{}'
 
       t.timestamps null: false
     end
