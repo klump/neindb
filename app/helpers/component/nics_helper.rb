@@ -8,6 +8,6 @@ module Component::NicsHelper
   end
 
   def format_mac mac
-    sprintf "%s%s:%s%s:%s%s:%s%s:%s%s:%s%s", *mac.split(//)
+    Component::Nic.format_mac mac
   end
 end

@@ -7,6 +7,18 @@ class Component::Nic < Component
 
   after_initialize :ensure_default_values
 
+  def self.find_by_mac_address mac
+    Component::Nic.where("properties -> 'mac_addresses' ? :mac", {mac: normalize_mac(mac)})
+  end
+
+  def self.normalize_mac mac
+    mac.gsub(/[.:-]/,'').downcase
+  end
+
+  def self.format_mac mac
+    sprintf "%s%s:%s%s:%s%s:%s%s:%s%s:%s%s", *mac.split(//)
+  end
+
   def primary_mac
     return unless mac_addresses.is_a?(Array)
     mac_addresses.sort.first
@@ -16,7 +28,7 @@ class Component::Nic < Component
     raise TypeError.new("Expected macs to be of type Array") unless macs.is_a? Array
 
     macs.map! do |mac|
-      mac.gsub(/[.:-]/,'').downcase
+      normalize_mac(mac)
     end
 
     super(macs)

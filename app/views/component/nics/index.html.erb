@@ -7,7 +7,7 @@
     <tr>
       <th>Name</th>
       <th>Vendor</th>
-      <th>Speed</th>
+      <th>MACs</th>
     </tr>
   </thead>
 
@@ -16,7 +16,7 @@
       <tr>
         <td><%= link_to component.name, component %></td>
         <td><%= component.vendor %></td>
-        <td><%= component.speed_mbits %> Mbit/s</td>
+        <td><%= display_mac_addresses component.mac_addresses %></td>
       </tr>
     <% end %>
   </tbody>

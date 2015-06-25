@@ -17,8 +17,11 @@ class ReportWorker::Parser::Component::Nic < ReportWorker::Parser
     parse_lshw
 
     @nics.each do |nic_connector,information|
-      nic = ::Component::Nic.find_or_initialize_by(name: information[:name])
+      # Try to find an existing NIC with on of the IP addresses, if it does not exist create a new one
+      nic = ::Component::Nic.find_by_mac_address(information[:mac_addresses].first)
+      nic = ::Component::Nic.new if nic.empty?
 
+      nic.name = information[:name]
       nic.vendor = information[:vendor]
       nic.speed_mbits = information[:speed_mbits]
       nic.ports = information[:ports] 
