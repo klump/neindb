@@ -1,8 +1,16 @@
 #! /bin/bash
 
+echo "Fetching new stuff from GIT"
+
 git stash
 git checkout master
 git pull
 git checkout deployment
 git rebase master
 git stash pop
+
+echo "Restart the app and workers? (CTRL+C to abort)"
+read
+
+touch tmp/restart.txt
+sudo service nein-workers restart
