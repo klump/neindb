@@ -49,7 +49,7 @@ class ReportWorker::Parser::Status::CpuTemperature < ReportWorker::Parser
     def parse_cputemperature
       # CPU temperature
       if @report.data["sensors"]["output"] =~ /^coretemp.+?$\s+.+?:$\s+temp\d+_input:\s+([0-9.]+)$/
-        @information[:temp] = $1
+        @information[:temp] = $1.strip
       else
         raise ReportWorker::Parser::InformationMissing, "The regular expression for the CPU temperature did not yield any matches"
       end

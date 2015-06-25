@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   namespace :component do
     resources :cpus, only: [:index, :show, :destroy]
     resources :nics, only: [:index, :show, :destroy]
+    resources :ram_modules, only: [:index, :show, :destroy]
   end
   resources :components, only: [:index]
   resources :revisions, only: [:show, :index]

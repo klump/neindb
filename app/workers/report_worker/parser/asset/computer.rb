@@ -19,42 +19,42 @@ class ReportWorker::Parser::Asset::Computer < ReportWorker::Parser
 
     # Check if the report has an asset, if not create one
     @report.asset ||= ::Asset::Computer.find_or_initialize_by(name: @information[:name])
-    @computer = @report.asset
+    computer = @report.asset
 
     # Duplicate the object for comparison
-    @computer_old = @computer.dup
+    computer_old = computer.dup
 
-    @computer.product_name = @information[:product_name]
-    @computer.bios_vendor = @information[:bios_vendor]
-    @computer.bios_version = @information[:bios_version]
-    @computer.pci_slots = @information[:pci_slots]
-    @computer.pcie_slots = @information[:pcie_slots]
-    @computer.dimm_slots = @information[:dimm_slots]
-    @computer.location = @information[:location] if @information[:location]
+    computer.product_name = @information[:product_name]
+    computer.bios_vendor = @information[:bios_vendor]
+    computer.bios_version = @information[:bios_version]
+    computer.pci_slots = @information[:pci_slots]
+    computer.pcie_slots = @information[:pcie_slots]
+    computer.dimm_slots = @information[:dimm_slots]
+    computer.location = @information[:location] if @information[:location]
 
-    @computer.save!
+    computer.save!
 
     # Save the report (if the association changed)
     @report.save!
 
     # Compare the old and the new computer
-    compare(@computer_old, @computer)
+    compare(computer_old, computer)
   end
 
   private
     def parse_dmidecode
       # System Information
       if @report.data["dmidecode"]["output"] =~ /^System Information$\s+Manufacturer: (.+?)$\s+Product Name: (.+?)$\s+Version: (.*?)$\s+Serial Number: (.+?)$/m
-        @information[:product_name] = $2
-        @information[:name] = $4
+        @information[:product_name] = $2.strip
+        @information[:name] = $4.strip
       else
         raise ReportWorker::Parser::InformationMissing, "The regular expression for the product name and name did not yield any matches"
       end
 
       # BIOS Information
       if @report.data["dmidecode"]["output"] =~ /^BIOS Information$\s+Vendor: (.+?)$\s+Version: (.+?)$/m
-        @information[:bios_vendor] = $1
-        @information[:bios_version] = $2
+        @information[:bios_vendor] = $1.strip
+        @information[:bios_version] = $2.strip
       else
         raise ReportWorker::Parser::InformationMissing, "The regular expression for the BIOS vendor and BIOS version did no yield any matches"
       end
@@ -67,7 +67,7 @@ class ReportWorker::Parser::Asset::Computer < ReportWorker::Parser
       
       # DIMM slots
       if @report.data["dmidecode"]["output"] =~ /^Physical Memory Array$\s+Location: System Board Or Motherboard$\s+Use: System Memory$\s+Error Correction Type: (.+?)$\s+Maximum Capacity: (.+?)$\s+Error Information Handle: (.+?)$\s+Number Of Devices: (\d+)$/m
-        @information[:dimm_slots] = $4
+        @information[:dimm_slots] = $4.strip
       else
         raise ReportWorker::Parser::InformationMissing, "The regular expression for the DIMM slots did not yield any matches"
       end
@@ -76,7 +76,7 @@ class ReportWorker::Parser::Asset::Computer < ReportWorker::Parser
     def parse_reporter
       # Location information
       if @report.data["reporter"]["ipaddress"] =~ /^10\.(20[4-8])\.(\d{1,2})\.\d{1,3}$/
-        @information[:location] = "D#{$1}-#{$2}"
+        @information[:location] = "D#{$1.strip}-#{$2.strip}"
       else
         @information[:location] = nil
       end

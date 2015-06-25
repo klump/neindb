@@ -7,4 +7,16 @@ class Asset::Computer < Asset
   validates :pci_slots, presence: true, numericality: {only_integer: true}
   validates :pcie_slots, presence: true, numericality: {only_integer: true}
   validates :dimm_slots, presence: true, numericality: {only_integer: true}
+
+  def cpu_speed_mhz
+    components.where(type: Component::Cpu).first.speed_mhz
+  end
+
+  def ram_size_bytes
+    size = 0
+    components.where(type: Component::RamModule).each do |ram|
+      size += ram.size_bytes
+    end
+    size
+  end
 end

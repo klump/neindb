@@ -24,4 +24,8 @@ module ApplicationHelper
       string
     end
   end
+
+  def number_to_human_freq number
+    number_to_human(number, units: { unit: "MHz", thousand: "GHz"})
+  end
 end

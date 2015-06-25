@@ -8,7 +8,7 @@ class Component::Nic < Component
   after_initialize :ensure_default_values
 
   def self.find_by_mac_address mac
-    Component::Nic.where("properties -> 'mac_addresses' ? :mac", {mac: normalize_mac(mac)})
+    Component::Nic.where("properties -> 'mac_addresses' ? :mac", {mac: normalize_mac(mac)}).first
   end
 
   def self.normalize_mac mac
@@ -28,7 +28,7 @@ class Component::Nic < Component
     raise TypeError.new("Expected macs to be of type Array") unless macs.is_a? Array
 
     macs.map! do |mac|
-      normalize_mac(mac)
+      Component::Nic.normalize_mac(mac)
     end
 
     super(macs)

@@ -7,6 +7,8 @@
     <tr>
       <th>Serial</th>
       <th>Product name</th>
+      <th>CPU freq</th>
+      <th>RAM size</th>
       <th>Location</th>
     </tr>
   </thead>
@@ -16,6 +18,8 @@
       <tr>
         <td><%= link_to asset.name, asset %></td>
         <td><%= asset.product_name %></td>
+        <td><%= number_to_human_freq asset.cpu_speed_mhz %></td>
+        <td><%= number_to_human_size asset.ram_size_bytes %></td>
         <td><%= asset.location %></td>
       </tr>
     <% end %>
