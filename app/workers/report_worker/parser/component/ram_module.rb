@@ -47,7 +47,7 @@ class ReportWorker::Parser::Component::RamModule < ReportWorker::Parser
         m.map! { |e| e.strip unless e.nil? }
 
         # Check if it is a valid RAM module (dmidecode provides information about empty slots and other memory devices as well...)
-        if ( ( m[1] != 'No Module Installed' ) && ( m[2] != 'Chip') && ( m[7] != 'SYSTEM ROM' ) )
+        if ( ( m[4] != 'No Module Installed' ) && ( m[5] != 'Chip') && ( m[7] != 'SYSTEM ROM' ) )
           # Assign the values
           ecc = m[1]
           size = m[4]
