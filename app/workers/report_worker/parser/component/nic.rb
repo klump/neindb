@@ -20,8 +20,6 @@ class ReportWorker::Parser::Component::Nic < ReportWorker::Parser
       # Try to find an existing NIC with on of the IP addresses, if it does not exist create a new one
       nic = ::Component::Nic.find_by_mac_address(information[:mac_addresses].first) || ::Component::Nic.new
 
-      puts "Found NIC #{information[:name]} with MACs #{information[:mac].to_sentence}"
-
       nic.name = information[:name]
       nic.vendor = information[:vendor]
       nic.speed_mbits = information[:speed_mbits]
