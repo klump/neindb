@@ -27,7 +27,7 @@
       <dd><%= @component.ecc ? 'Yes' : 'No' %></dd>
 
       <dt>Rank</dt>
-      <dd><%= @component.rank %></dd>
+      <dd><%= fill_if_empty @component.rank %></dd>
 
       <dt>Form factor</dt>
       <dd><%= @component.form_factor %></dd>
