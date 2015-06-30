@@ -38,6 +38,8 @@ class ReportWorker::Parser
         end
         p = parser.new(report)
         p.analyze
+        # refresh the report object, in case the parser made any changes to it
+        report.reload
       rescue => exception
         report.update!(parser_status: 'failure')
         raise exception

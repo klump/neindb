@@ -20,14 +20,13 @@ class ReportWorker::Parser::Status::CpuTemperature < ReportWorker::Parser
     # extract the necessary information to identify the computer
     parse_cputemperature
 
-    @status = ::Status.find_or_initialize_by(asset_id: @asset.id, name: 'cputemp')
+    @status = ::Status.find_or_initialize_by(asset: @report.asset, name: 'cputemp')
 
     # Duplicate the object for comparison
     @status_old = @status.dup
 
     @status.state = 'unknown'
     @status.message = "CPU temperature: #{@information[:temp]}°C"
-    @status.asset = @report.asset
 
     temp = @information[:temp].to_i
 
