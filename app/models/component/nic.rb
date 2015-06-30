@@ -1,7 +1,6 @@
 class Component::Nic < Component
   store_accessor :properties, :speed_mbits, :ports, :mac_addresses, :capabilities
 
-  validates :name, presence: true
   validates :speed_mbits, presence: true, numericality: true
   validates :ports, presence: true, numericality: {only_integer: true}
   validate :validate_mac_addresses
