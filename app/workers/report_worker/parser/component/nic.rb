@@ -20,6 +20,8 @@ class ReportWorker::Parser::Component::Nic < ReportWorker::Parser
       # Try to find an existing NIC with on of the IP addresses, if it does not exist create a new one
       nic = ::Component::Nic.find_by_mac_address(information[:mac_addresses].first) || ::Component::Nic.new
 
+      puts "Found NIC #{information[:name]} with MACs #{information[:mac].to_sentence}"
+
       nic.name = information[:name]
       nic.vendor = information[:vendor]
       nic.speed_mbits = information[:speed_mbits]
@@ -41,8 +43,8 @@ class ReportWorker::Parser::Component::Nic < ReportWorker::Parser
   private
     def parse_lshw
       # lshw
-      @report.data["lshw"]["output"].scan(/-network(:\d+)?$\s+.+?$\s+product:\s+(.+?)$\s+vendor:\s+(.+?)$.+?^\s+bus info:\s+(.+?)$.+?^\s+serial:\s+(.+?)$.+?^\s+capacity:\s+(.+?)$.+?^\s+capabilities:\s+(.+?)$/).each do |m|
-        m.map! { |e| e.strip }
+      @report.data["lshw"]["output"].scan(/-network(:\d+)?$\s+.+?$\s+product:\s+(.+?)$\s+vendor:\s+(.+?)$.+?^\s+bus info:\s+(.+?)$.+?^\s+serial:\s+(.+?)$.+?^\s+capacity:\s+(.+?)$.+?^\s+capabilities:\s+(.+?)$/m).each do |m|
+        m.map! { |e| e.strip unless e.nil? }
         connector = m[3]
         @nics[connector] ||= {
           ports: 0,
