@@ -41,19 +41,19 @@ class ReportWorker::Parser::Component::Nic < ReportWorker::Parser
   private
     def parse_lshw
       # lshw
-      @report.data["lshw"]["output"].scan(/-network$\s+.+?$\s+product:\s+(.+?)$\s+vendor:\s+(.+?)$.+?^\s+bus info:\s+(.+?)$.+?^\s+serial:\s+(.+?)$.+?^\s+size:\s+(.+?)$.+?^\s+capabilities:\s+(.+?)$/m).each do |m|
+      @report.data["lshw"]["output"].scan(/-network(:\d+)?$\s+.+?$\s+product:\s+(.+?)$\s+vendor:\s+(.+?)$.+?^\s+bus info:\s+(.+?)$.+?^\s+serial:\s+(.+?)$.+?^\s+capacity:\s+(.+?)$.+?^\s+capabilities:\s+(.+?)$/).each do |m|
         m.map! { |e| e.strip }
-        connector = m[2]
+        connector = m[3]
         @nics[connector] ||= {
           ports: 0,
           mac_addresses: [],
         }
         @nics[connector][:ports] += 1
-        @nics[connector][:name] = m[0]
-        @nics[connector][:vendor] = m[1]
-        @nics[connector][:mac_addresses] << m[3]
-        speed = m[4]
-        @nics[connector][:capabilities] = m[5].split(/\s+/)
+        @nics[connector][:name] = m[1]
+        @nics[connector][:vendor] = m[2]
+        @nics[connector][:mac_addresses] << m[4]
+        speed = m[5]
+        @nics[connector][:capabilities] = m[6].split(/\s+/)
 
         @nics[connector][:speed_mbits] = case speed
         when /^(\d+)Gbit\/s$/
