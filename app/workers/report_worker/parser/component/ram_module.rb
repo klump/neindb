@@ -43,22 +43,23 @@ class ReportWorker::Parser::Component::RamModule < ReportWorker::Parser
 
   private
     def parse_dmidecode
-      @report.data["dmidecode"]["output"].scan(/DMI type 17.+?$\s+Error Information Handle:\s+(.+?)$.+?\s+Size:\s+(.+?)$\s+Form Factor:\s+(.+?)$.+?^\s+Locator:\s+(.+?)$.+?^\s+Type:\s+(.+?)$.+?^\s+Speed:\s+(.+?)$\s+Manufacturer:\s*?(.+?)$\s+Serial Number:\s*?(.+?)$.+?^\s+Part Number:\s*?(.+?)$\s+Rank:\s+(.+?)$/m).each do |m|
-        m.map! { |e| e.strip }
+      @report.data["dmidecode"]["output"].scan(/DMI type 17.+?^Memory Device$\s+Array Handle:\s+(.+?)$\s+Error Information Handle:\s+(.+?)$\s+Total Width:\s+(.+?)\s+Data Width:\s+(.+?)\s+Size:\s+(.+?)\s+Form Factor:\s+(.+?)\s+Set:\s+(.+?)\s+Locator:\s+(.+?)\s+Bank Locator:\s+(.+?)\s+Type:\s+(.+?)\s+Type Detail:\s+(.+?)\s+Speed:\s+(.+?)\s+Manufacturer:\s+(.+?)\s+Serial Number:\s+(.+?)\s+Asset Tag:\s+(.+?)\s+Part Number:\s+(.+?)$(\s+Rank:\s+(.+?)$)?/m).each do |m|
+        m.map! { |e| e.strip unless e.nil? }
+
         # Check if it is a valid RAM module (dmidecode provides information about empty slots and other memory devices as well...)
         if ( ( m[1] != 'No Module Installed' ) && ( m[2] != 'Chip') && ( m[3] != 'SYSTEM ROM' ) )
           # Assign the values
-          ecc = m[0]
-          size = m[1]
-          speed = m[5]
-          serial = m[7]
+          ecc = m[1]
+          size = m[4]
+          speed = m[11]
+          serial = m[13]
           @ram_modules[serial] ||= {}
-          @ram_modules[serial][:form_factor] = m[2]
-          @ram_modules[serial][:locator] = m[3]
-          @ram_modules[serial][:ram_type] = m[4]
-          @ram_modules[serial][:vendor] = m[6]
-          @ram_modules[serial][:part_number] = m[8]
-          @ram_modules[serial][:rank] = m[9]
+          @ram_modules[serial][:form_factor] = m[5]
+          @ram_modules[serial][:locator] = m[7]
+          @ram_modules[serial][:ram_type] = m[9]
+          @ram_modules[serial][:vendor] = m[12]
+          @ram_modules[serial][:part_number] = m[15]
+          @ram_modules[serial][:rank] = m[17]
 
           # Do some special converstions
           @ram_modules[serial][:ecc] = ( ( ( ecc =~ /^No/i ) || ( ecc.empty? ) ) ? false : true )
