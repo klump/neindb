@@ -6,7 +6,7 @@ class Component < ActiveRecord::Base
   validates :vendor, presence: true
   validates :type, presence: true
 
-  def not_identified_by_name
+  def not_identified_by_name? 
     !([Component::Nic].include?(type))
   end
 end
