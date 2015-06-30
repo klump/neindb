@@ -43,11 +43,11 @@ class ReportWorker::Parser::Component::RamModule < ReportWorker::Parser
 
   private
     def parse_dmidecode
-      @report.data["dmidecode"]["output"].scan(/DMI type 17.+?^Memory Device$\s+Array Handle:\s+(.+?)$\s+Error Information Handle:\s+(.+?)$\s+Total Width:\s+(.+?)\s+Data Width:\s+(.+?)\s+Size:\s+(.+?)\s+Form Factor:\s+(.+?)\s+Set:\s+(.+?)\s+Locator:\s+(.+?)\s+Bank Locator:\s+(.+?)\s+Type:\s+(.+?)\s+Type Detail:\s+(.+?)\s+Speed:\s+(.+?)\s+Manufacturer:\s+(.+?)\s+Serial Number:\s+(.+?)\s+Asset Tag:\s+(.+?)\s+Part Number:\s+(.+?)$(\s+Rank:\s+(.+?)$)?/m).each do |m|
+      @report.data["dmidecode"]["output"].scan(/DMI type 17.+?^Memory Device$\s+Array Handle:(.+?)$\s+Error Information Handle:(.+?)$\s+Total Width:(.+?)$\s+Data Width:(.+?)$\s+Size:(.+?)$\s+Form Factor:(.+?)$\s+Set:(.+?)$\s+Locator:(.+?)$\s+Bank Locator:(.+?)$\s+Type:(.+?)$\s+Type Detail:(.+?)$\s+Speed:(.+?)$\s+Manufacturer:(.+?)$\s+Serial Number:(.+?)$\s+Asset Tag:(.+?)$\s+Part Number:(.+?)$(\s+Rank:(.+?)$)?/m).each do |m|
         m.map! { |e| e.strip unless e.nil? }
 
         # Check if it is a valid RAM module (dmidecode provides information about empty slots and other memory devices as well...)
-        if ( ( m[1] != 'No Module Installed' ) && ( m[2] != 'Chip') && ( m[3] != 'SYSTEM ROM' ) )
+        if ( ( m[1] != 'No Module Installed' ) && ( m[2] != 'Chip') && ( m[7] != 'SYSTEM ROM' ) )
           # Assign the values
           ecc = m[1]
           size = m[4]
