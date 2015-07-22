@@ -8,7 +8,7 @@
   </div>
   <div class="panel-body">
     <dl>
-      <dt>Serial</dt>
+      <dt>Part number</dt>
       <dd><%= @component.name %></dd>
 
       <dt>Vendor</dt>
@@ -32,8 +32,8 @@
       <dt>Form factor</dt>
       <dd><%= @component.form_factor %></dd>
 
-      <dt>Part number</dt>
-      <dd><%= fill_if_empty @component.part_number %></dd>
+      <dt>Serials</dt>
+      <dd><%= fill_if_empty display_serials @component.serials %></dd>
     </dl>
   </div>
 </div>
