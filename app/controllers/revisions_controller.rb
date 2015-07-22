@@ -4,7 +4,7 @@ class RevisionsController < ApplicationController
   # GET /revisions
   # GET /revisions.json
   def index
-    @revisions = Revision.all
+    @revisions = Revision.order("updated_at DESC")
   end
 
   # GET /revisions/1

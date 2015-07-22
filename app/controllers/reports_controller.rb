@@ -2,7 +2,8 @@ class ReportsController < ApplicationController
   # GET /reports
   # GET /reports.json
   def index
-    @reports = Report.all
+    # Order the reports decending by the date
+    @reports = Report.order("created_at DESC")
   end
 
   # GET /reports/1

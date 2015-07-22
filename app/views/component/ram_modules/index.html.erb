@@ -5,11 +5,10 @@
 <table class="table table-condensed table-striped">
   <thead>
     <tr>
-      <th>Serial</th>
+      <th>Part number</th>
       <th>Vendor</th>
       <th>Type</th>
       <th>Size</th>
-      <th>Part number</th>
     </tr>
   </thead>
 
@@ -20,7 +19,6 @@
         <td><%= component.vendor %></td>
         <td><%= component.ram_type %></td>
         <td><%= number_to_human_size component.size_bytes %></td>
-        <td><%= fill_if_empty component.part_number %></td>
       </tr>
     <% end %>
   </tbody>
