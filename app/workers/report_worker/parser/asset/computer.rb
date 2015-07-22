@@ -25,6 +25,7 @@ class ReportWorker::Parser::Asset::Computer < ReportWorker::Parser
     computer_old = computer.dup
 
     computer.product_name = @information[:product_name]
+    computer.product_name = 'Unknown' if computer.product_name.empty?
     computer.bios_vendor = @information[:bios_vendor]
     computer.bios_version = @information[:bios_version]
     computer.pci_slots = @information[:pci_slots]
